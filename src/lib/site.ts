@@ -25,7 +25,7 @@ export const branches: Branch[] = [
   },
   {
     id: "sm-bf-paranaque",
-    name: "Everything Chocolate",
+    name: "YANA Cacao Kitchen",
     place: "SM City BF Parañaque",
     address: "SM City BF Parañaque, Dr Arcadio Santos Ave, Parañaque, Metro Manila",
   },

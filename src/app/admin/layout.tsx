@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isAdmin } from "@/lib/admin-auth";
 import { hasDatabase } from "@/lib/db";
 import { logoutAction } from "./actions";
+import "../admin.css";
 
 export const metadata: Metadata = { title: "Admin", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";

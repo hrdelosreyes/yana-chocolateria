@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { DM_Sans, Jost } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Jost } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
 const body = DM_Sans({ subsets: ["latin"], variable: "--font-body" });
 const heading = Jost({ subsets: ["latin"], variable: "--font-heading" });
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || "https://www.yanachocolateria.com"),
@@ -16,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${body.variable} ${heading.variable}`}>
+    <html lang="en" className={`${body.variable} ${heading.variable} ${display.variable}`}>
       <body>{children}</body>
     </html>
   );

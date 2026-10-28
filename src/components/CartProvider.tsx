@@ -17,6 +17,8 @@ type CartContextValue = {
   count: number;
   subtotal: number;
   ready: boolean;
+  drawerOpen: boolean;
+  setDrawerOpen: (open: boolean) => void;
   add: (line: Omit<CartLine, "quantity">, quantity: number) => void;
   setQuantity: (variantId: string, quantity: number) => void;
   clear: () => void;
@@ -28,6 +30,7 @@ const STORAGE_KEY = "yana-cart-v1";
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [ready, setReady] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -54,6 +57,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...current, { ...line, quantity }];
     });
+    setDrawerOpen(true);
   }, []);
 
   const setQuantity = useCallback((variantId: string, quantity: number) => {
@@ -70,13 +74,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     () => ({
       lines,
       ready,
+      drawerOpen,
+      setDrawerOpen,
       count: lines.reduce((n, l) => n + l.quantity, 0),
       subtotal: lines.reduce((n, l) => n + l.price * l.quantity, 0),
       add,
       setQuantity,
       clear,
     }),
-    [lines, ready, add, setQuantity, clear],
+    [lines, ready, drawerOpen, add, setQuantity, clear],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -24,18 +24,6 @@ export const branches: Branch[] = [
     address: "Unit A2 Erwincel Bldg, Filipinas Ave., UPS 5, San Isidro, Parañaque, Metro Manila",
   },
   {
-    id: "vista-mall-sta-rosa",
-    name: "Everything Chocolate",
-    place: "Vista Mall Sta. Rosa",
-    address: "Level 1 Commune Hall, Vista Mall Sta Rosa Tagaytay Rd, Santa Rosa, Laguna",
-  },
-  {
-    id: "evia",
-    name: "Everything Chocolate",
-    place: "Evia Lifestyle Center",
-    address: "Evia Lifestyle Center, Daang Hari Rd, Las Piñas, Metro Manila",
-  },
-  {
     id: "sm-bf-paranaque",
     name: "Everything Chocolate",
     place: "SM City BF Parañaque",

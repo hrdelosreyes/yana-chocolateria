@@ -3,6 +3,18 @@ export const promise = {
   body: "As a family-owned enterprise, our promise to you is one of authenticity and dedication. Each Yana chocolate embodies the love and passion that drives us, ensuring that every bite delivers an experience that is truly exceptional. Join us on this chocolate journey and indulge in the pure delight that Yana Chocolateria has to offer. Together, let's savor the richness of Philippine cacao, celebrate sustainability, and relish the shared moments of happiness our chocolates bring.",
 };
 
+export const hero = {
+  eyebrow: "Family-owned · Philippine cacao",
+  title: "Chocolate crafted from the finest Philippine cacao",
+  body: "Single-origin Davao cacao, handcrafted by our chocolatiers into bars, bonbons, nama and more.",
+};
+
+export const pillars = [
+  { title: "Sourced from local farms", body: "We partner with cacao farmers across the Philippines, supporting rural communities and traditional farming." },
+  { title: "Handcrafted in small batches", body: "Time-honored techniques meet modern artistry in every batch our chocolatiers make." },
+  { title: "Made to be shared", body: "Chocolates that bring people together and turn simple moments into cherished memories." },
+];
+
 export const story = [
   {
     title: "Our Journey",

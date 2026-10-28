@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import type { Product } from "@/lib/catalog";
 import { formatPrice } from "@/lib/money";
 import { useCart } from "./CartProvider";
@@ -11,7 +10,6 @@ export function AddToCart({ product }: { product: Product }) {
   const firstAvailable = product.variants.find((v) => v.available) ?? product.variants[0];
   const [variantId, setVariantId] = useState(firstAvailable.id);
   const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
   const variant = product.variants.find((v) => v.id === variantId)!;
 
   function handleAdd() {
@@ -26,7 +24,6 @@ export function AddToCart({ product }: { product: Product }) {
       },
       quantity,
     );
-    setAdded(true);
   }
 
   return (
@@ -45,7 +42,6 @@ export function AddToCart({ product }: { product: Product }) {
                 disabled={!v.available}
                 onChange={() => {
                   setVariantId(v.id);
-                  setAdded(false);
                 }}
               />
               {v.title}
@@ -72,14 +68,9 @@ export function AddToCart({ product }: { product: Product }) {
           </button>
         </div>
       </div>
-      <button className="button primary full" onClick={handleAdd} disabled={!variant.available}>
-        {variant.available ? "Add to cart" : "Sold out"}
+      <button className="button primary full large" onClick={handleAdd} disabled={!variant.available}>
+        {variant.available ? `Add to cart · ${formatPrice(variant.price * quantity)}` : "Sold out"}
       </button>
-      {added && (
-        <p className="added" role="status">
-          Added to your cart. <Link href="/cart">View cart</Link>
-        </p>
-      )}
     </div>
   );
 }

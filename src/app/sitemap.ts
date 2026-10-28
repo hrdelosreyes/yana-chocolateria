@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { collections, products } from "@/lib/catalog";
+import { getCollections, getProducts } from "@/lib/catalog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [collections, products] = await Promise.all([getCollections(), getProducts()]);
   const base = (process.env.SITE_URL || "https://www.yanachocolateria.com").replace(/\/$/, "");
   const paths = [
     "",

@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getPaymentRequest, verifyFormWebhook, verifyJsonWebhook } from "@/lib/hitpay";
 import { escapeHtml, sendEmail } from "@/lib/email";
+import { hasDatabase } from "@/lib/db";
+import { markOrderPaid, orderEmailHtml } from "@/lib/order";
 import { site } from "@/lib/site";
 
-type Paid = { paymentRequestId: string; reference: string; amount: string; status: string };
+type Paid = { paymentRequestId: string; paymentId: string; reference: string; amount: string; status: string };
 
 function parse(raw: string, contentType: string, signature: string | null): Paid | null {
   if (contentType.includes("application/json")) {
@@ -11,6 +14,7 @@ function parse(raw: string, contentType: string, signature: string | null): Paid
     const data = JSON.parse(raw);
     return {
       paymentRequestId: String(data.payment_request?.id ?? data.payment_request_id ?? ""),
+      paymentId: String(data.id ?? data.payment_id ?? ""),
       reference: String(data.reference_number ?? data.payment_request?.reference_number ?? ""),
       amount: String(data.amount ?? ""),
       status: String(data.status ?? ""),
@@ -20,6 +24,7 @@ function parse(raw: string, contentType: string, signature: string | null): Paid
   if (!verifyFormWebhook(fields)) return null;
   return {
     paymentRequestId: fields.payment_request_id ?? "",
+    paymentId: fields.payment_id ?? "",
     reference: fields.reference_number ?? "",
     amount: fields.amount ?? "",
     status: fields.status ?? "",
@@ -32,6 +37,53 @@ export async function POST(request: Request) {
   if (!paid) return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   if (paid.status !== "completed" && paid.status !== "succeeded") return NextResponse.json({ ok: true });
 
+  const shopEmail = process.env.ORDER_EMAIL_TO;
+
+  if (hasDatabase) {
+    let order;
+    try {
+      order = await markOrderPaid({
+        reference: paid.reference,
+        requestId: paid.paymentRequestId,
+        paymentId: paid.paymentId,
+        amount: paid.amount,
+      });
+    } catch (err) {
+      console.error(err);
+      if (shopEmail) {
+        await sendEmail({
+          to: shopEmail,
+          subject: `CHECK PAYMENT: order ${paid.reference}`,
+          html: `<p>HitPay reported a payment of ₱${escapeHtml(paid.amount)} for order ${escapeHtml(paid.reference)}, but it doesn't match the order total. Please check it in HitPay and the admin page.</p>`,
+        });
+      }
+      return NextResponse.json({ ok: true });
+    }
+    if (!order) return NextResponse.json({ ok: true }); // already handled
+
+    revalidatePath("/", "layout"); // stock may have changed
+    if (shopEmail) {
+      await sendEmail({
+        to: shopEmail,
+        subject: `PAID: order ${order.reference}`,
+        html: orderEmailHtml(order, "New paid order"),
+        replyTo: order.customer.email,
+      });
+    }
+    await sendEmail({
+      to: order.customer.email,
+      subject: `Thank you for your order ${order.reference}`,
+      html: orderEmailHtml(
+        order,
+        `Thank you, ${order.customer.name}!`,
+        `We've received your payment and are preparing your order. We'll contact you about pickup or delivery. Questions? Email ${site.email} or call ${site.phone}.`,
+      ),
+      replyTo: shopEmail,
+    });
+    return NextResponse.json({ ok: true });
+  }
+
+  // No database: details come from HitPay; the full order is in the "awaiting payment" email.
   let details = { name: "", email: "", phone: "", purpose: "" };
   try {
     const pr = await getPaymentRequest(paid.paymentRequestId);
@@ -39,14 +91,11 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error(err);
   }
-
   const summary = `<p><strong>Order:</strong> ${escapeHtml(paid.reference)}<br><strong>Amount paid:</strong> ₱${escapeHtml(paid.amount)}</p>
 <p>${escapeHtml(details.purpose)}</p>`;
-
-  const to = process.env.ORDER_EMAIL_TO;
-  if (to) {
+  if (shopEmail) {
     await sendEmail({
-      to,
+      to: shopEmail,
       subject: `PAID: order ${paid.reference}`,
       html: `<div style="font-family:Arial,sans-serif;font-size:14px"><h2>Payment received</h2>${summary}
 <p><strong>Customer:</strong> ${escapeHtml(details.name)}<br>${escapeHtml(details.email)}<br>${escapeHtml(details.phone)}</p>
@@ -61,7 +110,7 @@ export async function POST(request: Request) {
       html: `<div style="font-family:Arial,sans-serif;font-size:14px"><h2>Thank you, ${escapeHtml(details.name)}!</h2>
 <p>We've received your payment and are preparing your order. We'll contact you about pickup or delivery.</p>${summary}
 <p>Questions? Email ${site.email} or call ${site.phone}.</p></div>`,
-      replyTo: to,
+      replyTo: shopEmail,
     });
   }
   return NextResponse.json({ ok: true });

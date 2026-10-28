@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductGrid } from "@/components/ProductCard";
-import { getCollection, products } from "@/lib/catalog";
+import { getCollections, getProducts } from "@/lib/catalog";
 import { navCollections } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Shop" };
 
-export default function Shop() {
+export default async function Shop() {
+  const [products, collections] = await Promise.all([getProducts(), getCollections()]);
   return (
     <div className="section container">
       <h1 className="page-title">Shop</h1>
@@ -16,7 +17,7 @@ export default function Shop() {
         </Link>
         {navCollections.map((h) => (
           <Link key={h} href={`/collections/${h}`} className="chip">
-            {getCollection(h)?.title}
+            {collections.find((c) => c.handle === h)?.title}
           </Link>
         ))}
       </nav>

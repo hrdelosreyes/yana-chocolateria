@@ -5,8 +5,8 @@ import { productsInCollection } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { features, promise } from "@/content/story";
 
-export default function Home() {
-  const bestSellers = productsInCollection("best-sellers");
+export default async function Home() {
+  const bestSellers = await productsInCollection("best-sellers");
   return (
     <>
       <section className="hero">

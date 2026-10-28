@@ -4,8 +4,8 @@ import { getCollection } from "@/lib/catalog";
 import { navCollections } from "@/lib/site";
 import { CartButton } from "./CartButton";
 
-export function Header() {
-  const links = navCollections.map((h) => getCollection(h)!).filter(Boolean);
+export async function Header() {
+  const links = (await Promise.all(navCollections.map((h) => getCollection(h)))).filter((c) => c !== undefined);
   return (
     <header className="site-header">
       <div className="container header-inner">

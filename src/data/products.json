@@ -1,0 +1,720 @@
+[
+  {
+    "handle": "sukacao",
+    "title": "Sukacao",
+    "descriptionHtml": "<h3>Sukacao - All Natural Cacao Vinegar Seasoning</h3>\n<p>✨ <strong>Versatile Usage</strong> ✨</p>\n<ul>\n<li>Sukacao is an all-natural cacao vinegar seasoning. It can be used as a sawsawan, salad dressing, marinade, dip, chocolate vinaigrette, and chocolate sauce. 🍫</li>\n<li>This versatile seasoning is perfect for adding a unique flavor to your dishes. Whether you're making a salad, a dip, or a sauce, Sukacao is a great choice. 🍽️</li>\n</ul>\n<h3>Applications</h3>\n<ul>\n<li>\n<strong>Salad Dressing:</strong> Enhance your salads with Sukacao's delicious flavor. 🥬</li>\n<li>\n<strong>Dip:</strong> Use it as a tasty dip for your favorite snacks. 🥂</li>\n<li>\n<strong>Marinade:</strong> Perfect for marinating meats and vegetables. 🍖</li>\n<li>\n<strong>Chocolate Vinaigrette:</strong> Create a delightful chocolate vinaigrette for your dishes. 🍫</li>\n<li>\n<strong>Chocolate Sauce:</strong> Use it as a rich chocolate sauce for desserts. 🍰</li>\n</ul>\n<h3>BBQ and More</h3>\n<ul>\n<li>Sukacao is also great for BBQs. Add it to your favorite BBQ dishes for an extra flavor boost. 🍽️</li>\n<li>This all-natural cacao vinegar seasoning is a versatile addition to your kitchen. Try it today! 🌟</li>\n</ul>",
+    "optionName": "Flavor",
+    "images": [
+      "/images/products/sukacao-1.webp",
+      "/images/products/sukacao-2.webp",
+      "/images/products/sukacao-3.webp",
+      "/images/products/sukacao-4.webp",
+      "/images/products/sukacao-5.webp",
+      "/images/products/sukacao-6.webp",
+      "/images/products/sukacao-7.webp",
+      "/images/products/sukacao-8.webp"
+    ],
+    "collections": [
+      "best-sellers",
+      "chocolate-finds"
+    ],
+    "variants": [
+      {
+        "id": "43180979028033",
+        "title": "Regular",
+        "price": 19500,
+        "available": true
+      },
+      {
+        "id": "43180979060801",
+        "title": "Spicy",
+        "price": 19500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "bonbons-1",
+    "title": "Bonbons",
+    "descriptionHtml": "<p>Experience the perfect blend of indulgence and mindfulness with our handcrafted bonbons!</p>\n<p>Made from premium couverture chocolate—a healthier option for dessert lovers and snackers alike. Choose from six exquisite flavors:</p>\n<p>Banana Chip: Tropical crunch meets velvety chocolate.<br>Salted Caramel: A luscious balance of sweet and savory.<br>Salted Peanut: Nutty perfection with a hint of sea salt.<br>Mango Purée: A refreshing burst of fruity delight.<br>Strawberry: Bright and juicy notes in every bite.<br>Matcha: The earthy richness of green tea paired with smooth chocolate.</p>\n<p>Each bonbon is a testament to artisanal craftsmanship. So whether you're treating yourself or gifting a loved one, let our bonbons deliver a luxurious and heartfelt experience in every bite</p>",
+    "optionName": "Flavor",
+    "images": [
+      "/images/products/bonbons-1-1.webp",
+      "/images/products/bonbons-1-2.webp",
+      "/images/products/bonbons-1-3.webp",
+      "/images/products/bonbons-1-4.webp"
+    ],
+    "collections": [],
+    "variants": [
+      {
+        "id": "41955324493889",
+        "title": "Salted caramel",
+        "price": 7000,
+        "available": true
+      },
+      {
+        "id": "41955324526657",
+        "title": "Banana Chip",
+        "price": 7000,
+        "available": true
+      },
+      {
+        "id": "41955324559425",
+        "title": "Salted Peanut",
+        "price": 7000,
+        "available": true
+      },
+      {
+        "id": "41955324592193",
+        "title": "Mango Puree",
+        "price": 7000,
+        "available": true
+      },
+      {
+        "id": "41955324624961",
+        "title": "Strawberry",
+        "price": 7000,
+        "available": true
+      },
+      {
+        "id": "41955324657729",
+        "title": "Matcha",
+        "price": 7000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "truffle",
+    "title": "Truffles",
+    "descriptionHtml": "<p>Dive into pure indulgence with YANA Chocolateria's handcrafted truffles, where luxury meets flavor!</p>\n<p>Made with premium couverture chocolate, these bite-sized treats blend the comforting richness of chocolate with delightful flavors:</p>\n<p>Peanutty<br>Caramelicious<br>Marshmallow Mint<br>Cookies and Cream<br>Bananarama<br>Tropical Sunrise</p>\n<p>Whether you're treating yourself or sharing with loved ones, YANA truffles make every moment extraordinary.</p>",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/truffle-1.webp"
+    ],
+    "collections": [],
+    "variants": [
+      {
+        "id": "41839761784897",
+        "title": "Peanutty",
+        "price": 4500,
+        "available": true
+      },
+      {
+        "id": "41839761653825",
+        "title": "Caramelicious",
+        "price": 4500,
+        "available": true
+      },
+      {
+        "id": "41839761752129",
+        "title": "Marshmallow Mint",
+        "price": 4500,
+        "available": true
+      },
+      {
+        "id": "41839761850433",
+        "title": "Bananarama",
+        "price": 4500,
+        "available": true
+      },
+      {
+        "id": "41839761686593",
+        "title": "Tropical Sunrise",
+        "price": 4500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "gianduja",
+    "title": "Gianduja Choco Hazelnut Spread",
+    "descriptionHtml": "",
+    "optionName": null,
+    "images": [
+      "/images/products/gianduja-1.webp"
+    ],
+    "collections": [],
+    "variants": [
+      {
+        "id": "41832134410305",
+        "title": null,
+        "price": 38000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "triobox",
+    "title": "Trio Box",
+    "descriptionHtml": "<style type=\"text/css\"><!--td {border: 1px solid #cccccc;}br {mso-data-placement:same-cell;}--></style>\n<table xmlns=\"http://www.w3.org/1999/xhtml\" cellspacing=\"0\" cellpadding=\"0\" dir=\"ltr\" border=\"1\">\n<colgroup><col width=\"593\"></colgroup>\n<tbody>\n<tr>\n<td rowspan=\"6\" colspan=\"1\">\n<div>Experience the perfect blend of indulgence and mindfulness with our handcrafted bonbons!<br><br>Made from premium couverture chocolate—a healthier option for dessert lovers and snackers alike. Choose from six exquisite flavors:<br><br>Banana Chip: Tropical crunch meets velvety chocolate.<br>Salted Caramel: A luscious balance of sweet and savory.<br>Salted Peanut: Nutty perfection with a hint of sea salt.<br>Mango Purée: A refreshing burst of fruity delight.<br>Strawberry: Bright and juicy notes in every bite.<br>Matcha: The earthy richness of green tea paired with smooth chocolate.<br><br>Each bonbon is a testament to artisanal craftsmanship. So whether you're treating yourself or gifting a loved one, let our bonbons deliver a luxurious and heartfelt experience in every bite</div>\n</td>\n</tr>\n<tr></tr>\n<tr></tr>\n<tr></tr>\n<tr></tr>\n<tr></tr>\n</tbody>\n</table>",
+    "optionName": null,
+    "images": [
+      "/images/products/triobox-1.webp"
+    ],
+    "collections": [
+      "desserts"
+    ],
+    "variants": [
+      {
+        "id": "41824679428161",
+        "title": null,
+        "price": 50000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "cacaonibs",
+    "title": "Roasted Natural Cacao Nibs",
+    "descriptionHtml": "<p>Discover the rich, nutty crunch of ROASTED CACAO NIBS, nature’s chocolate in its purest form. Sourced from premium cacao beans, these nibs are roasted and carefully processed to retain their bold, natural flavor and exceptional nutritional value.</p>\n<p>Perfect as a topping for desserts, a mix-in for smoothies, or a guilt-free snack, cacao nibs are packed with antioxidants, fiber, and essential minerals like magnesium and iron. </p>\n<p>Elevate your recipes with cacao nibs for a satisfying, health-conscious treat!</p>",
+    "optionName": "Size",
+    "images": [
+      "/images/products/cacaonibs-1.webp",
+      "/images/products/cacaonibs-2.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41824678740033",
+        "title": "250 Grams",
+        "price": 30000,
+        "available": true
+      },
+      {
+        "id": "41824678772801",
+        "title": "100 Grams",
+        "price": 14000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "caliber",
+    "title": "Caliber",
+    "descriptionHtml": "<p>From the first bite to the last, Caliber is crafted to captivate your senses and redefine dessert bliss! </p>\n<p>Experience the satisfying crunch of rice crispies and the earthy richness of walnuts, all wrapped in a pillowy layer of toasted marshmallow. Each bite is elevated by the silky smoothness of premium couverture chocolate—choose between creamy 50% Milk or bold 70% Dark chocolate. </p>\n<p>Complete your indulgence with your favorite topping: soft, melty marshmallows, crunchy crushed peanuts, tropical banana chips, or a decadent drizzle of white chocolate rum. </p>",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/caliber-1.webp",
+      "/images/products/caliber-2.webp",
+      "/images/products/caliber-3.webp",
+      "/images/products/caliber-4.webp"
+    ],
+    "collections": [
+      "best-sellers",
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41869465354305",
+        "title": "50% Milk / Banana Chips",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41869465387073",
+        "title": "50% Milk / Nutty",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41869465419841",
+        "title": "50% Milk / Marshmallow",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41869465485377",
+        "title": "60% Dark / Banana Chips",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41869465518145",
+        "title": "60% Dark / Nutty",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41869465550913",
+        "title": "60% Dark / Marshmallow",
+        "price": 14000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "champo",
+    "title": "Champorado Bomb",
+    "descriptionHtml": "<p>Rediscover the warmth of home with our CHAMPORADO BOMB. This beloved Filipino rice porridge is elevated with our premium unsweetened chocolate tablea, creating a rich, velvety chocolate base. </p>\n<p>The magic happens when you add the choco bomb—a luscious ball of couverture chocolate filled with marshmallows. Pour warm milk over it, and watch as the bomb melts into a creamy, marshmallow-infused indulgence. </p>\n<p>Perfect for chilly mornings or cozy afternoons, the Champorado Bomb is a deliciously nostalgic treat that combines tradition with modern decadence.</p>",
+    "optionName": null,
+    "images": [
+      "/images/products/champo-1.webp"
+    ],
+    "collections": [
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41824683327553",
+        "title": null,
+        "price": 17000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "nama",
+    "title": "Nama",
+    "descriptionHtml": "<p>Elevate your chocolate experience with our handcrafted Nama Chocolate, a decadent blend of smooth, velvety texture and bold infusions. Each bite melts luxuriously on your palate, revealing layers of exquisite flavor: </p>\n<ul>\n<li>Bailey: Irish cream for a rich, indulgent treat.</li>\n<li>Juno: White rum, adding a touch of sophistication.</li>\n<li>Zoey: Brandy-infused, perfect for a refined palate.</li>\n<li>Hana: Sweet honey for a natural, elegant finish.</li>\n</ul>\n<p>Crafted with premium couverture chocolate and infused with the finest ingredients, Nama is your gateway to indulgence. Perfect for gifting or treating yourself to a moment of pure decadence.</p>",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/nama-1.webp"
+    ],
+    "collections": [
+      "desserts"
+    ],
+    "variants": [
+      {
+        "id": "41824679034945",
+        "title": "Bailey’s (Irish Cream)",
+        "price": 6500,
+        "available": true
+      },
+      {
+        "id": "41824679067713",
+        "title": "Zoey (White Rum)",
+        "price": 6500,
+        "available": true
+      },
+      {
+        "id": "41824679100481",
+        "title": "Juno (Brandy)",
+        "price": 6500,
+        "available": true
+      },
+      {
+        "id": "41824679133249",
+        "title": "Hana (Honey)",
+        "price": 6500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "nama-box-of-9",
+    "title": "Nama (Box of 9)",
+    "descriptionHtml": "<p>Create your own luxury chocolate experience with our Box of Nama. Select up to 9 pieces from our four signature flavors: </p>\n<ul>\n<li>Bailey: Creamy Irish cream for a rich indulgence. </li>\n<li>Juno: White rum-infused for a hint of sophistication. </li>\n<li>Zoey: Brandy notes for a touch of refinement. </li>\n<li>Hana: Sweet honey for a naturally elegant finish. </li>\n</ul>\n<p>Each Nama is crafted with premium couverture chocolate, delivering a melt-in-your-mouth texture and bold, unforgettable flavors. Whether gifting or savoring yourself, the Box of Nama lets you curate a journey of taste and luxury.</p>",
+    "optionName": null,
+    "images": [
+      "/images/products/nama-box-of-9-1.webp"
+    ],
+    "collections": [
+      "desserts"
+    ],
+    "variants": [
+      {
+        "id": "41869361643585",
+        "title": null,
+        "price": 56000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "instchoco",
+    "title": "Instant Choco Drink",
+    "descriptionHtml": "<p>Savor real couverture chocolate anytime with our Instant Choco Drink. Simply add water, and experience the rich, velvety flavors of fine 50% Creamy Milk or 70% Natural Dark Couverture Chocolate, crafted from sustainably sourced cacao. </p>\n<p>Whether you crave it hot for cozy moments or iced for refreshing indulgence, this foamy, indulgent drink is a comforting cup of chocolate bliss for any time of day. </p>\n<p>With Instant Choco Drink, enjoying premium chocolate is always quick, easy, and satisfying.</p>",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/instchoco-1.webp"
+    ],
+    "collections": [
+      "drinks"
+    ],
+    "variants": [
+      {
+        "id": "41824678477889",
+        "title": "Creamy Milk (3 in 1)",
+        "price": 8000,
+        "available": true
+      },
+      {
+        "id": "41824678510657",
+        "title": "Natural Dark (3 in 1)",
+        "price": 7500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "milkbars",
+    "title": "50% & 52% Milk Bars",
+    "descriptionHtml": "Indulge in the comforting, rich flavor of our 50% Milk Chocolate Bar, handcrafted with Davao’s finest single-origin cacao. This bar strikes the perfect balance between creamy sweetness and deep cacao notes, delivering a smooth, melt-in-your-mouth indulgence free from artificial ingredients. \n<br><br>\nFor added texture, try our 52% Milk Chocolate with Nibs — each bite offers a delightful crunch, highlighting the earthy, roasted essence of premium cacao.\n<br><br>\nPerfect for: chocolate lovers looking for a balanced, luxurious milk chocolate with a touch of natural crunch.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/milkbars-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832134639681",
+        "title": "50% Milk Bars",
+        "price": 14500,
+        "available": true
+      },
+      {
+        "id": "41832134672449",
+        "title": "52% Milk with Nibs",
+        "price": 14500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "darkbars",
+    "title": "70% & 72% Dark Bars",
+    "descriptionHtml": "Discover the bold richness of our 70% Dark Chocolate Bar, made with all-natural, single-origin cacao from Davao, Philippines. With a smooth, satisfying snap, this chocolate is as healthy as it is indulgent, and handcrafted for those who appreciate the deep, intense notes of pure dark chocolate without added sugar.\n<br><br>\nSavor an extra layer of crunch and aroma with  the 72% Dark Chocolate Bar with Nibs, for a pure cocoa experience with hints of fruit and floral undertones.\n<br><br>\nPerfect for: health-conscious chocolate lovers who appreciate robust, true cacao flavors.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/darkbars-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832134574145",
+        "title": "70% Dark",
+        "price": 14500,
+        "available": true
+      },
+      {
+        "id": "41832134606913",
+        "title": "72% Dark with Nibs",
+        "price": 14500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "75aromatico",
+    "title": "75% Aromatico Sugarfree",
+    "descriptionHtml": "Satisfy your chocolate cravings guilt-free with our 75% Aromatico SF Chocolate Bar, a sugar-free delight made with the finest single-origin cacao from the Philippines. With 75% natural cacao content, this dark chocolate also supports heart health and helps regulate blood sugar levels, while offering a rich, intense chocolate experience with earthy and nutty undertones.\n<br><br>\nEnjoy the luxurious snap and smooth melt of dark chocolate that’s as nourishing as it is indulgent, perfect for those looking for a health-conscious way to satisfy their chocolate cravings.\n<br><br>\nPerfect for: dark chocolate enthusiasts and health-conscious snackers seeking a naturally rich, sugar-free indulgence.",
+    "optionName": null,
+    "images": [
+      "/images/products/75aromatico-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832134541377",
+        "title": null,
+        "price": 17500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "twigs",
+    "title": "Twigs",
+    "descriptionHtml": "Experience the perfect crunch with Twigs, where savory meets sweet in a delightful twist! \n<br><br>\nThese crispy breadsticks are generously coated in rich, premium couverture chocolate, available in smooth milk or intense dark. Each bite combines the light, satisfying snap of the breadstick with the velvety, creamy chocolate layer, creating an irresistible contrast of textures and flavors. \n<br><br>\nPerfect for snacking anytime, these chocolate-drenched Twigs are crafted to elevate the joy of chocolate into every crunchy bite!",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/twigs-1.webp",
+      "/images/products/twigs-2.webp"
+    ],
+    "collections": [
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41832108490817",
+        "title": "70% Dark",
+        "price": 14000,
+        "available": true
+      },
+      {
+        "id": "41832108523585",
+        "title": "50% Milk",
+        "price": 14000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "barks",
+    "title": "Chocolate Barks",
+    "descriptionHtml": "Our handcrafted Chocolate Barks bring you a delicious, versatile way to savor fine chocolate in every bite. Handcrafted with rich 50% Milk and 70% Dark couverture chocolate, these barks are all about indulgence with a touch of sophistication.\n<br><br>\n50% Milk Chocolate Barks:\nPerfect for those who love a creamier chocolate, this 50% Milk Barks deliver a smooth and velvety chocolate experience with a gentle sweetness that pairs wonderfully with your favorite beverages or snacks.\n<br><br>\n70% Dark Chocolate Barks:\nFor dark chocolate aficionados, 70% Dark Barks boast a luxurious, bittersweet profile that balances richness with a nuanced bitterness, with deep, bold notes of cacao in every snap. \n<br><br>\nWhether you're gifting, sharing, or simply treating yourself, our Milk and Dark Chocolate Barks offer an exquisite way to enjoy chocolate in its purest form.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/barks-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832107606081",
+        "title": "70% Dark",
+        "price": 14500,
+        "available": true
+      },
+      {
+        "id": "41832107638849",
+        "title": "50% Milk",
+        "price": 14500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "beanies",
+    "title": "Chocolate Beanies",
+    "descriptionHtml": "Savor the rich, satisfying blend of 50% and 70% couverture chocolate with medium-roasted robusta coffee bits, for an energizing kick designed to lift your mood and keep you going. <br><br>\n\nThese Beanies offer an indulgent balance of deep cocoa notes and earthy coffee undertones, with each bite crafted to satisfy your chocolate and coffee cravings.<br><br>\n\nPerfect for a quick pick-me-up, or for those moments when you need a smooth yet invigorating treat.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/beanies-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832107376705",
+        "title": "Assorted (50% Milk + 70% Dark)",
+        "price": 21000,
+        "available": true
+      },
+      {
+        "id": "41832107409473",
+        "title": "70% Dark",
+        "price": 21000,
+        "available": true
+      },
+      {
+        "id": "41832107442241",
+        "title": "50% Milk",
+        "price": 21000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "bites",
+    "title": "Chocolate Bites",
+    "descriptionHtml": "Savor the moment with our Chocolate Beanies: bite-sized, bean-shaped treats that combine rich chocolate and medium-roasted robusta coffee bits to create the ultimate quick boost. Each Beanie packs the velvety smoothness of premium couverture chocolate with an energizing hint of coffee. \n<br><br>\nWhether you crave the creamy sweetness of milk chocolate, the bold intensity of dark, or an exciting blend of both, our Chocolate Beanies are your go-to for that midday recharge or a satisfying snack.<br><br>\n\nPerfect for those needing a gentle pick-me-up that enhances focus and lifts energy and mood.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/bites-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832107212865",
+        "title": "Assorted Milk & Dark",
+        "price": 14500,
+        "available": true
+      },
+      {
+        "id": "41832107245633",
+        "title": "70% Dark",
+        "price": 14500,
+        "available": true
+      },
+      {
+        "id": "41832107278401",
+        "title": "50% Milk",
+        "price": 14500,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "nycookie",
+    "title": "NYC Style Cookies",
+    "descriptionHtml": "Indulge in the ultimate chocolate lover’s dream! \n<br><br>\nThe Chunky Choco cookie is packed with our signature couverture chocolate chips for a rich, velvety experience, topped with crunchy cashew nuts for an extra nutty twist. \n<br><br>\nPerfectly baked for that thick, soft-baked New York style, each bite melts in your mouth, delivering a blissful balance of chocolatey depth and cashew crunch.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/nycookie-1.webp",
+      "/images/products/nycookie-2.webp",
+      "/images/products/nycookie-3.webp",
+      "/images/products/nycookie-4.webp"
+    ],
+    "collections": [
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41824683458625",
+        "title": "Chunky Choco",
+        "price": 22000,
+        "available": true
+      },
+      {
+        "id": "41824683491393",
+        "title": "Cookies & Cream",
+        "price": 22000,
+        "available": true
+      },
+      {
+        "id": "41839741894721",
+        "title": "Zombehh",
+        "price": 22000,
+        "available": true
+      },
+      {
+        "id": "41824683556929",
+        "title": "Twocolate",
+        "price": 22000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "twocolate",
+    "title": "Brownies",
+    "descriptionHtml": "Our Twocolate Brownies are a chocolate lover’s dream, crafted with double the chocolate goodness for a rich, fudgy experience. \n<br><br>\nMade with our premium couverture chocolate, these brownies have an intensely indulgent flavor and a melt-in-your-mouth texture that’s impossible to resist. Topped with crunchy cashew nuts, each bite offers a satisfying contrast between smooth chocolate and nutty crunch. \n<br><br>\nPerfectly dense and decadently delicious, these brownies are the ultimate treat for anyone who believes you can never have too much chocolate!",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/twocolate-1.webp"
+    ],
+    "collections": [
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41839740747841",
+        "title": "Twocolate",
+        "price": 14000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "icechocobrew",
+    "title": "Iced Choco Brew",
+    "descriptionHtml": "Cool down and indulge in the refreshing delight of our Iced Choco Brew! \n<br><br>\nMade with premium couverture chocolate, this rich, velvety chocolate drink is served over ice and topped with a cloud of whipped cream and a sprinkle of choco flakes for that extra crunch and chocolatey goodness. It’s the perfect blend of creamy, cool, and indulgent, designed to satisfy your chocolate cravings with every sip. \n<br><br>\nWhether you’re treating yourself on a warm day or simply craving something deliciously different, our Iced Choco Brew is here to make your day a little sweeter!",
+    "optionName": "Size",
+    "images": [
+      "/images/products/icechocobrew-1.webp"
+    ],
+    "collections": [
+      "drinks"
+    ],
+    "variants": [
+      {
+        "id": "41824679592001",
+        "title": "12 oz",
+        "price": 13000,
+        "available": true
+      },
+      {
+        "id": "41824679624769",
+        "title": "16 oz",
+        "price": 15000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "hchocobomb",
+    "title": "Hot Choco Bomb",
+    "descriptionHtml": "Unwrap a cozy indulgence with our Hot Choco Bomb—a luxurious choco brew experience that brings warmth and delight in every sip! \n<br><br>\nMade from premium couverture milk chocolate, each bomb is crafted to melt into a smooth, creamy hot chocolate drink. Inside, you’ll find a surprise of fluffy white marshmallows that rise to the top as the chocolate melts, adding a touch of sweetness and texture. \n<br><br>\nPerfect for cold nights, festive gatherings, or as a gift, our Hot Choco Bomb promises a comforting escape in every cup. Just pour hot milk, stir, and enjoy!",
+    "optionName": null,
+    "images": [
+      "/images/products/hchocobomb-1.webp"
+    ],
+    "collections": [
+      "drinks"
+    ],
+    "variants": [
+      {
+        "id": "41824679526465",
+        "title": null,
+        "price": 15000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "chocoron",
+    "title": "Chocoron",
+    "descriptionHtml": "A taste of tradition with a delicious twist! \n<br><br>\nChocoron brings together the crumbly, buttery goodness of classic Filipino polvoron with the richness of premium milk couverture chocolate. Each bite is a perfect blend of creamy, chocolatey sweetness and nostalgic comfort. \n<br><br>\nPerfect for those who crave something unique yet unmistakably Filipino, this treat is a delightful fusion of culture and chocolate. Savor a piece of home reimagined with Chocoron!",
+    "optionName": null,
+    "images": [
+      "/images/products/chocoron-1.webp"
+    ],
+    "collections": [
+      "sweet-treats"
+    ],
+    "variants": [
+      {
+        "id": "41824679460929",
+        "title": null,
+        "price": 3000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "dragees",
+    "title": "Hazelnut Dragees",
+    "descriptionHtml": "Experience luxurious, handcrafted flavor in every bite with our Hazelnut Dragees! \n<br><br>\nEach dragee features a whole, roasted hazelnut enveloped in a thick, smooth layer of our signature couverture milk chocolate. The creamy chocolate coating perfectly complements the nutty crunch inside, creating an irresistible blend of rich, velvety texture and satisfying crispness ideal for snacking, gifting, or treating yourself.\n<br><br>\nTaste the perfect harmony of premium chocolate and quality hazelnuts, made to delight chocolate lovers and nut enthusiasts alike.",
+    "optionName": null,
+    "images": [
+      "/images/products/dragees-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41824678412353",
+        "title": null,
+        "price": 22000,
+        "available": true
+      }
+    ]
+  },
+  {
+    "handle": "bigbars",
+    "title": "Big Bars",
+    "descriptionHtml": "Each bite of our Big Bars offers a harmonious fusion of orange and strawberry with classic fruit-and-nut goodness: an ideal choice for those who crave a smooth, yet complex, chocolate profile.\n<br><br>\n60% Milk &amp; 60% Dark Chocolate Bar:\nA rich blend of roasted almond and walnut with golden raisins on premium couverture Milk or Dark chocolate. \n<br><br>\n60% White Chocolate Bar\nCreamy white chocolate that combines crunchy cacao nibs with the mild sweetness of walnuts and black raisins.\n<br><br>\nCrafted to elevate each bite with balanced crunch and natural sweetness, these Big Bars are a truly luxurious way to indulge in something special.",
+    "optionName": "Variant",
+    "images": [
+      "/images/products/bigbars-1.webp"
+    ],
+    "collections": [
+      "pure-chocolate"
+    ],
+    "variants": [
+      {
+        "id": "41832107016257",
+        "title": "50% Milk",
+        "price": 28000,
+        "available": true
+      },
+      {
+        "id": "41832107049025",
+        "title": "70% Dark",
+        "price": 28000,
+        "available": true
+      },
+      {
+        "id": "41832107081793",
+        "title": "40% White",
+        "price": 28000,
+        "available": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "handle": "best-sellers",
+    "title": "Best Sellers",
+    "description": "",
+    "image": "/images/site/collection-best-sellers.webp"
+  },
+  {
+    "handle": "chocolate-finds",
+    "title": "Chocolate Finds",
+    "description": "",
+    "image": "/images/site/collection-chocolate-finds.webp"
+  },
+  {
+    "handle": "pure-chocolate",
+    "title": "Couverture Chocolates",
+    "description": "Premium couverture chocolate made from Davao’s finest single-origin cacao. A healthy indulgence that brings the natural richness of the Philippines to life.",
+    "image": "/images/site/collection-pure-chocolate.webp"
+  },
+  {
+    "handle": "desserts",
+    "title": "Desserts",
+    "description": "Artisanal truffles, nama, and bonbons, handcrafted with our signature velvety-rich chocolate. A perfect blend of creativity and comfort.",
+    "image": "/images/site/collection-desserts.webp"
+  },
+  {
+    "handle": "drinks",
+    "title": "Drinks",
+    "description": "Smooth, decadent chocolate drink made with premium couverture chocolate. Enjoy it hot or iced for a comforting, guilt-free indulgence.",
+    "image": "/images/site/collection-drinks.webp"
+  },
+  {
+    "handle": "sweet-treats",
+    "title": "Sweet Treats",
+    "description": "Mindful snacking with wholesome ingredients designed to satisfy your chocolate cravings, perfect for a delicious pick-me-up.",
+    "image": "/images/site/collection-sweet-treats.webp"
+  }
+]

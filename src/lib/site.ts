@@ -10,7 +10,7 @@ export const site = {
     { name: "Facebook", href: "https://facebook.com/yanachocolateria" },
     { name: "Instagram", href: "https://instagram.com/yanachocolateria" },
     { name: "TikTok", href: "https://tiktok.com/@yanachocolateria" },
-    { name: "YouTube", href: "https://youtube.com/yanachocolateria" },
+    { name: "YouTube", href: "https://www.youtube.com/@YanaChocolateria" },
   ],
 };
 

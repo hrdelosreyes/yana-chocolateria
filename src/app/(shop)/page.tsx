@@ -90,12 +90,12 @@ export default async function Home() {
       <section className="story-band">
         <div className="container story-band-inner">
           <Reveal className="story-band-image">
-            <Image src="/images/site/couverture.webp" alt="Yana couverture chocolate bar with nuts" fill sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src="/images/site/couverture.webp" alt="YANA couverture chocolate bar with nuts" fill sizes="(max-width: 768px) 100vw, 50vw" />
           </Reveal>
           <Reveal className="story-band-text" delay={100}>
             <p className="eyebrow">{promise.title}</p>
             <blockquote>
-              “Each Yana chocolate embodies the love and passion that drives us, ensuring that every bite delivers an
+              “Each YANA chocolate embodies the love and passion that drives us, ensuring that every bite delivers an
               experience that is truly exceptional.”
             </blockquote>
             <Link href="/about" className="button ghost">

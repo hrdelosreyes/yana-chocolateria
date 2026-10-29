@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="admin">
       <header className="admin-header">
         <div className="container admin-header-inner">
-          <strong>Yana Admin</strong>
+          <strong>YANA Admin</strong>
           {signedIn && (
             <nav>
               <Link href="/admin">Orders</Link>

@@ -1,6 +1,6 @@
 export const promise = {
   title: "The YANA Chocolateria Promise",
-  body: "As a family-owned enterprise, our promise to you is one of authenticity and dedication. Each Yana chocolate embodies the love and passion that drives us, ensuring that every bite delivers an experience that is truly exceptional. Join us on this chocolate journey and indulge in the pure delight that YANA Chocolateria has to offer. Together, let's savor the richness of Philippine cacao, celebrate sustainability, and relish the shared moments of happiness our chocolates bring.",
+  body: "As a family-owned enterprise, our promise to you is one of authenticity and dedication. Each YANA chocolate embodies the love and passion that drives us, ensuring that every bite delivers an experience that is truly exceptional. Join us on this chocolate journey and indulge in the pure delight that YANA Chocolateria has to offer. Together, let's savor the richness of Philippine cacao, celebrate sustainability, and relish the shared moments of happiness our chocolates bring.",
 };
 
 export const hero = {

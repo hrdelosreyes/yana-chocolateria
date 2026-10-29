@@ -1,4 +1,4 @@
-# Yana Chocolateria website
+# YANA Chocolateria website
 
 Next.js site for www.yanachocolateria.com, hosted on Vercel, with checkout through HitPay
 (GCash, Maya, QR Ph, cards). Products, photos and text were copied from the old Shopify store.
@@ -44,7 +44,7 @@ See `.env.example`.
 | `HITPAY_MODE` | `sandbox` while testing, `live` when ready |
 | `RESEND_API_KEY` | Optional, from resend.com, for order emails |
 | `ORDER_EMAIL_TO` | Inbox that receives orders |
-| `ORDER_EMAIL_FROM` | e.g. `Yana Chocolateria <orders@yanachocolateria.com>` (domain must be verified in Resend) |
+| `ORDER_EMAIL_FROM` | e.g. `YANA Chocolateria <orders@yanachocolateria.com>` (domain must be verified in Resend) |
 | `ADMIN_PASSWORD` | Password for `/admin`. Use a long, unique one |
 | `DATABASE_URL` | Added automatically when you connect a Neon database under Storage |
 

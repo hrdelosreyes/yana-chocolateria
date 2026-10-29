@@ -1,5 +1,5 @@
 export const site = {
-  name: "Yana Chocolateria",
+  name: "YANA Chocolateria",
   tagline: "Chocolate Excellence | Mouthwatering | The perfect gift",
   description:
     "Family-owned Philippine chocolatier crafting premium couverture chocolate, sweet treats, desserts and drinks from the finest Philippine cacao.",
@@ -19,7 +19,7 @@ export type Branch = { id: string; name: string; place: string; address: string 
 export const branches: Branch[] = [
   {
     id: "paranaque-ups5",
-    name: "Yana Chocolateria",
+    name: "YANA Chocolateria",
     place: "Erwincel Bldg, Parañaque",
     address: "Unit A2 Erwincel Bldg, Filipinas Ave., UPS 5, San Isidro, Parañaque, Metro Manila",
   },

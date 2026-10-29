@@ -39,8 +39,8 @@ export async function Header() {
               </Link>
             ))}
           </nav>
-          <Link href="/" className="logo" aria-label="Yana Chocolateria home">
-            <Image src="/images/site/logo-white.webp" alt="Yana Chocolateria" width={150} height={90} priority />
+          <Link href="/" className="logo" aria-label="YANA Chocolateria home">
+            <Image src="/images/site/logo-white.webp" alt="YANA Chocolateria" width={150} height={90} priority />
           </Link>
           <div className="header-actions">
             <nav className="desktop-nav">

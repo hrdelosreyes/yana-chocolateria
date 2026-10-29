@@ -8,7 +8,7 @@ export default function About() {
   return (
     <div className="section container narrow">
       <div className="about-logo">
-        <Image src="/images/site/logo-vertical.webp" alt="Yana Chocolateria" width={180} height={248} />
+        <Image src="/images/site/logo-vertical.webp" alt="YANA Chocolateria" width={180} height={248} />
       </div>
       <h1 className="page-title">{promise.title}</h1>
       <p className="lead">{promise.body}</p>

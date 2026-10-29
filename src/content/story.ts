@@ -1,6 +1,6 @@
 export const promise = {
-  title: "The Yana Chocolateria Promise",
-  body: "As a family-owned enterprise, our promise to you is one of authenticity and dedication. Each Yana chocolate embodies the love and passion that drives us, ensuring that every bite delivers an experience that is truly exceptional. Join us on this chocolate journey and indulge in the pure delight that Yana Chocolateria has to offer. Together, let's savor the richness of Philippine cacao, celebrate sustainability, and relish the shared moments of happiness our chocolates bring.",
+  title: "The YANA Chocolateria Promise",
+  body: "As a family-owned enterprise, our promise to you is one of authenticity and dedication. Each Yana chocolate embodies the love and passion that drives us, ensuring that every bite delivers an experience that is truly exceptional. Join us on this chocolate journey and indulge in the pure delight that YANA Chocolateria has to offer. Together, let's savor the richness of Philippine cacao, celebrate sustainability, and relish the shared moments of happiness our chocolates bring.",
 };
 
 export const hero = {
@@ -18,7 +18,7 @@ export const pillars = [
 export const story = [
   {
     title: "Our Journey",
-    body: "Founded with a vision to showcase the finest Philippine cacao, Yana Chocolateria embarked on a journey to bring forth the unique flavors and character of this beloved ingredient. From the lush cacao farms of different provinces in the Philippines, we carefully source the best beans, cherishing the richness of each distinct region.",
+    body: "Founded with a vision to showcase the finest Philippine cacao, YANA Chocolateria embarked on a journey to bring forth the unique flavors and character of this beloved ingredient. From the lush cacao farms of different provinces in the Philippines, we carefully source the best beans, cherishing the richness of each distinct region.",
   },
   {
     title: "Sustainability at Our Core",
@@ -30,7 +30,7 @@ export const story = [
   },
   {
     title: "A Driving Force of Joy and Connection",
-    body: "At Yana Chocolateria, we believe in more than just delightful chocolates; we believe in fostering moments of joy and connection. Through our delectable creations, we seek to bring people together, sharing in the simple pleasure of indulging in the finest chocolates and creating cherished memories.",
+    body: "At YANA Chocolateria, we believe in more than just delightful chocolates; we believe in fostering moments of joy and connection. Through our delectable creations, we seek to bring people together, sharing in the simple pleasure of indulging in the finest chocolates and creating cherished memories.",
   },
 ];
 

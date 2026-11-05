@@ -82,7 +82,7 @@ export class HitPayError extends Error {
     try {
       const data = JSON.parse(body);
       const errors = data.errors ? Object.values(data.errors).flat().join(" ") : "";
-      detail = [data.message, errors].filter(Boolean).join(" ") || detail;
+      detail = [...new Set([data.message, errors].filter(Boolean))].join(" ") || detail;
     } catch {}
     super(`HitPay error ${status}: ${detail}`);
   }

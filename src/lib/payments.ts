@@ -6,6 +6,7 @@ import { trackOrderUrl } from "@/lib/order-links";
 import {
   getOrder,
   getPendingHitpayRequest,
+  updateOrderStatus,
   markOrderPaid,
   orderEmailHtml,
   recordRefund,
@@ -124,9 +125,7 @@ async function finishRefund(reference: string) {
   if (order) await notifyRefunded(order);
 }
 
-// Refunds the full amount of a paid order through HitPay and cancels the order.
-export async function refundOrder(reference: string) {
-  const order = await refundableOrder(reference);
+async function refundThroughHitpay(order: Order) {
   let paymentId = order.hitpayPaymentId || "";
   if (!paymentId && order.hitpayRequestId) {
     const pr = await getPaymentRequest(order.hitpayRequestId);
@@ -137,9 +136,73 @@ export async function refundOrder(reference: string) {
   }
 
   const refund = await refundPayment(paymentId, order.total);
-  await recordRefund(reference, { amount: order.total, method: "hitpay", refundId: String(refund.id ?? ""), paymentId });
-  console.info(`HitPay refund: order ${reference} refunded`);
+  await recordRefund(order.reference, {
+    amount: order.total,
+    method: "hitpay",
+    refundId: String(refund.id ?? ""),
+    paymentId,
+  });
+  console.info(`HitPay refund: order ${order.reference} refunded`);
+}
+
+// Refunds the full amount of a paid order through HitPay and cancels the order.
+export async function refundOrder(reference: string) {
+  await refundThroughHitpay(await refundableOrder(reference));
   await finishRefund(reference);
+}
+
+export class CancelError extends Error {}
+
+// Lets a customer cancel an order that's paid but not yet being prepared. The order is
+// cancelled first; the refund is tried through HitPay, and if HitPay can't refund the
+// payment method, the shop is asked to refund it by hand.
+export async function cancelByCustomer(reference: string) {
+  const previous = await updateOrderStatus(reference, "cancelled", "paid");
+  if (!previous) {
+    throw new CancelError(
+      "Your order is already being prepared, so it can't be cancelled online. Please contact us and we'll help.",
+    );
+  }
+  revalidatePath("/", "layout"); // stock changed
+  let order = (await getOrder(reference))!;
+  let refunded = false;
+  try {
+    await refundThroughHitpay(order);
+    refunded = true;
+    order = (await getOrder(reference))!;
+  } catch (err) {
+    console.warn(`Customer cancelled ${reference}; HitPay refund failed, shop must refund manually`, err);
+  }
+  console.info(`Order ${reference} cancelled by customer${refunded ? " and refunded" : ""}`);
+
+  const shopEmail = process.env.ORDER_EMAIL_TO;
+  if (shopEmail) {
+    await sendEmail({
+      to: shopEmail,
+      subject: refunded
+        ? `CANCELLED by customer: order ${reference} (refunded)`
+        : `CANCELLED by customer: order ${reference} (please refund ${formatPrice(order.total)})`,
+      html: orderEmailHtml(
+        order,
+        "Order cancelled by the customer",
+        refunded
+          ? `The customer cancelled this order and ${formatPrice(order.total)} was refunded through HitPay. Its items are back in stock.`
+          : `The customer cancelled this order. HitPay couldn't refund this payment method, so please send ${formatPrice(order.total)} back to the customer, then use "Mark as refunded" on the order in the admin. Its items are back in stock.`,
+      ),
+      replyTo: order.customer.email,
+    });
+  }
+  if (refunded) {
+    await notifyRefunded(order);
+  } else {
+    await emailCustomer(
+      order,
+      `Your order ${reference} has been cancelled`,
+      "Your order has been cancelled",
+      `We've cancelled your order as requested. We'll refund ${formatPrice(order.total)} to you within 5 business days and let you know once it's done.`,
+    );
+  }
+  return { refunded };
 }
 
 // Records a refund the shop made outside HitPay (e.g. sent back by GCash) and cancels the order.

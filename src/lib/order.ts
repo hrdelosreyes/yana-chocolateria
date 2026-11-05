@@ -231,12 +231,17 @@ export async function countOrdersByStatus() {
 
 const stockHeld: OrderStatus[] = ["paid", "ready", "completed"];
 
-// Changes an order's status. Cancelling a paid order puts its items back in stock;
-// un-cancelling it takes them out again.
-export async function updateOrderStatus(reference: string, status: OrderStatus): Promise<OrderStatus | null> {
+// Changes an order's status and returns the previous one (null if nothing changed).
+// Cancelling a paid order puts its items back in stock; un-cancelling takes them out
+// again. With onlyFrom, the change happens only if the order is in that status.
+export async function updateOrderStatus(
+  reference: string,
+  status: OrderStatus,
+  onlyFrom?: OrderStatus,
+): Promise<OrderStatus | null> {
   return db().begin(async (sql) => {
     const [row] = await sql<{ status: OrderStatus }[]>`select status from orders where reference = ${reference} for update`;
-    if (!row || row.status === status) return null;
+    if (!row || row.status === status || (onlyFrom && row.status !== onlyFrom)) return null;
     await sql`update orders set status = ${status} where reference = ${reference}`;
     const wasHeld = stockHeld.includes(row.status);
     const nowHeld = stockHeld.includes(status);

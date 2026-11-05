@@ -1507,7 +1507,7 @@ a:hover .tile-link span {
   font-size: 0.9rem;
 }
 
-.checkout-form input:not([type="radio"]),
+.checkout-form input:not([type="radio"]):not([type="checkbox"]),
 .checkout-form select,
 .checkout-form textarea {
   display: block;
@@ -1738,7 +1738,7 @@ a:hover .tile-link span {
   background: var(--line);
 }
 
-.order-steps li.done:not(:last-child)::after {
+.order-steps li.done:has(+ li.done)::after {
   background: var(--gold-dark);
 }
 
@@ -1771,4 +1771,30 @@ a:hover .tile-link span {
 
 .track-summary {
   margin: 0 0 32px;
+}
+
+.cancel-order {
+  max-width: 520px;
+  margin: 0 auto 32px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.cancel-order h2 {
+  margin-top: 0;
+}
+
+.cancel-order label.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+}
+
+.cancel-order input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--gold-dark);
 }

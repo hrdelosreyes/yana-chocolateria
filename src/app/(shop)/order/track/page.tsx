@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/money";
 import { getOrder, lineLabel, type Order } from "@/lib/order";
 import { verifyOrderToken } from "@/lib/order-links";
 import { site } from "@/lib/site";
+import { CancelForm } from "./CancelForm";
 import { TrackForm } from "./TrackForm";
 
 export const metadata: Metadata = { title: "Track your order", robots: { index: false } };
@@ -14,13 +15,12 @@ type Props = { searchParams: Promise<{ ref?: string; t?: string }> };
 
 function steps(order: Order) {
   const pickup = order.fulfillmentMethod === "pickup";
-  const reached = { pending: 0, paid: 1, ready: 2, completed: 3, cancelled: 0 }[order.status];
+  const reached = { pending: -1, paid: 0, ready: 1, completed: 2, cancelled: -1 }[order.status];
   return [
     "Payment received",
-    "Being prepared",
     pickup ? "Ready for pickup" : "Out for delivery",
     pickup ? "Picked up" : "Delivered",
-  ].map((label, i) => ({ label, done: i < reached || (order.status === "completed" && i === 3), current: i === reached }));
+  ].map((label, i) => ({ label, done: i <= reached, current: i === reached }));
 }
 
 function statusMessage(order: Order) {
@@ -28,7 +28,7 @@ function statusMessage(order: Order) {
     case "pending":
       return "We haven't received payment for this order yet.";
     case "paid":
-      return "We've received your payment and are preparing your order.";
+      return "We've received your payment. Your order is in line to be prepared.";
     case "ready":
       return order.fulfillmentMethod === "pickup"
         ? `Your order is ready. ${order.fulfillmentText.replace(/^Pickup at /, "Pick it up at ")}, and bring your order number.`
@@ -36,8 +36,11 @@ function statusMessage(order: Order) {
     case "completed":
       return order.fulfillmentMethod === "pickup" ? "Your order has been picked up. Enjoy!" : "Your order has been delivered. Enjoy!";
     case "cancelled":
-      return order.refundedAt
-        ? `This order was cancelled and ${formatPrice(order.refundAmount ?? order.total)} was refunded on ${formatDate(order.refundedAt)}.`
+      if (order.refundedAt) {
+        return `This order was cancelled and ${formatPrice(order.refundAmount ?? order.total)} was refunded on ${formatDate(order.refundedAt)}.`;
+      }
+      return order.paidAt
+        ? `This order was cancelled. Your refund of ${formatPrice(order.total)} is being processed, and we'll let you know once it's done.`
         : "This order was cancelled.";
   }
 }
@@ -98,6 +101,10 @@ export default async function TrackOrder({ searchParams }: Props) {
           {order.fulfillmentText}
         </p>
       </div>
+
+      {order.status === "paid" && (
+        <CancelForm reference={order.reference} token={t!} amount={formatPrice(order.total)} />
+      )}
 
       <p className="center muted">
         Questions? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>

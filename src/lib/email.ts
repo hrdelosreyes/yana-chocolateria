@@ -1,18 +1,29 @@
-// Sends email through Resend's HTTP API. Does nothing if Resend isn't configured,
+import nodemailer, { type Transporter } from "nodemailer";
+import { site } from "@/lib/site";
+
+let transport: Transporter | undefined;
+
+// Sends email from the shop's Gmail account. Does nothing if Gmail isn't configured,
 // so the shop still works (HitPay also emails payment receipts).
 export async function sendEmail(opts: { to: string; subject: string; html: string; replyTo?: string }) {
-  const key = process.env.RESEND_API_KEY;
-  const from = process.env.ORDER_EMAIL_FROM;
-  if (!key || !from) {
-    console.warn(`Email not sent (Resend not configured): ${opts.subject}`);
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) {
+    console.warn(`Email not sent (Gmail not configured): ${opts.subject}`);
     return;
   }
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from, to: [opts.to], subject: opts.subject, html: opts.html, reply_to: opts.replyTo }),
-  });
-  if (!res.ok) console.error(`Email failed (${res.status}): ${await res.text()}`);
+  transport ??= nodemailer.createTransport({ service: "gmail", auth: { user, pass: pass.replace(/\s/g, "") } });
+  try {
+    await transport.sendMail({
+      from: { name: site.name, address: user },
+      to: opts.to,
+      subject: opts.subject,
+      html: opts.html,
+      replyTo: opts.replyTo,
+    });
+  } catch (err) {
+    console.error(`Email failed: ${opts.subject}`, err);
+  }
 }
 
 export function escapeHtml(value: string) {

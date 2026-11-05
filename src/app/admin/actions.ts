@@ -6,7 +6,7 @@ import { logIn, logOut, requireAdmin } from "@/lib/admin-auth";
 import { db } from "@/lib/db";
 import { orderStatuses, updateOrderStatus, type OrderStatus } from "@/lib/order";
 import { HitPayError } from "@/lib/hitpay";
-import { RefundError, refundOrder, syncOrderPayment } from "@/lib/payments";
+import { markRefundedManually, notifyStatusChange, RefundError, refundOrder, syncOrderPayment } from "@/lib/payments";
 
 export async function loginAction(_state: { error: string } | null, form: FormData) {
   if (await logIn(String(form.get("password") ?? ""))) redirect("/admin");
@@ -24,8 +24,9 @@ export async function setOrderStatusAction(form: FormData) {
   const reference = String(form.get("reference"));
   const status = String(form.get("status")) as OrderStatus;
   if (!orderStatuses.some((s) => s.value === status)) throw new Error("Invalid status");
-  await updateOrderStatus(reference, status);
-  revalidatePath("/admin", "layout");
+  const previous = await updateOrderStatus(reference, status);
+  if (previous) await notifyStatusChange(reference, previous);
+  revalidatePath("/", "layout"); // stock may have changed
   redirect(`/admin/orders/${encodeURIComponent(reference)}?saved=1`);
 }
 
@@ -59,6 +60,20 @@ export async function refundOrderAction(_state: { error: string } | null, form: 
             ? `HitPay refused the refund (${err.message}). You can refund it from the HitPay dashboard, then mark the order Cancelled.`
             : "Couldn't reach HitPay. Please try again, or refund it from the HitPay dashboard.",
     };
+  }
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/orders/${encodeURIComponent(reference)}`);
+}
+
+export async function markRefundedAction(_state: { error: string } | null, form: FormData) {
+  await requireAdmin();
+  const reference = String(form.get("reference"));
+  if (form.get("confirm") !== "on") return { error: "Tick the box to confirm you've refunded the customer." };
+  try {
+    await markRefundedManually(reference);
+  } catch (err) {
+    console.error(`Recording manual refund failed for ${reference}`, err);
+    return { error: err instanceof RefundError ? err.message : "Couldn't save the refund. Please try again." };
   }
   revalidatePath("/admin", "layout");
   redirect(`/admin/orders/${encodeURIComponent(reference)}`);

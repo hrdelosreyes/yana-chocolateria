@@ -24,6 +24,7 @@ export function Footer() {
           <Link href="/about">About Us</Link>
           <Link href="/shop">Shop</Link>
           <Link href="/pages/contact">Contact</Link>
+          <Link href="/order/track">Track order</Link>
           <Link href="/policies/refund-policy">Refund policy</Link>
           <Link href="/policies/privacy-policy">Privacy policy</Link>
           <Link href="/policies/terms-of-service">Terms of service</Link>

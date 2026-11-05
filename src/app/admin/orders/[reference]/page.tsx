@@ -5,6 +5,7 @@ import { formatDate } from "@/lib/dates";
 import { formatPrice } from "@/lib/money";
 import { getOrder, lineLabel, orderStatuses } from "@/lib/order";
 import { checkPaymentAction, setOrderStatusAction } from "../../actions";
+import { ManualRefundForm } from "./ManualRefundForm";
 import { RefundForm } from "./RefundForm";
 
 type Props = { params: Promise<{ reference: string }>; searchParams: Promise<{ saved?: string; checked?: string }> };
@@ -25,7 +26,8 @@ export default async function OrderPage({ params, searchParams }: Props) {
       {saved && <p className="notice">Status updated.</p>}
       {order.refundedAt && (
         <p className="notice">
-          Refunded {formatPrice(order.refundAmount ?? order.total)} through HitPay on {formatDate(order.refundedAt)}.
+          Refunded {formatPrice(order.refundAmount ?? order.total)}
+          {order.refundMethod === "manual" ? " outside HitPay" : " through HitPay"} on {formatDate(order.refundedAt)}.
           The order is cancelled.
         </p>
       )}
@@ -90,6 +92,7 @@ export default async function OrderPage({ params, searchParams }: Props) {
         <section className="admin-card">
           <h2>Refund</h2>
           <RefundForm reference={order.reference} amount={formatPrice(order.total)} />
+          <ManualRefundForm reference={order.reference} amount={formatPrice(order.total)} />
         </section>
       )}
 

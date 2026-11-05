@@ -59,6 +59,7 @@ await sql.unsafe(`
   alter table orders add column if not exists refunded_at timestamptz;
   alter table orders add column if not exists refund_amount integer;
   alter table orders add column if not exists hitpay_refund_id text;
+  alter table orders add column if not exists refund_method text;
   create table if not exists order_items (
     id serial primary key,
     order_reference text not null references orders(reference) on delete cascade,

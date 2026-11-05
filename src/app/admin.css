@@ -229,3 +229,14 @@
   padding: 12px;
   border-radius: var(--radius);
 }
+
+.manual-refund {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.manual-refund h3 {
+  font-size: 1rem;
+  margin: 0 0 4px;
+}

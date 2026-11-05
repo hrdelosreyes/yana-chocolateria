@@ -45,6 +45,7 @@ export type Order = {
   hitpayPaymentId?: string | null;
   refundedAt?: Date | null;
   refundAmount?: number | null;
+  refundMethod?: "hitpay" | "manual" | null;
 };
 
 const MAX_QTY = 99;
@@ -151,6 +152,7 @@ type OrderRow = {
   hitpay_payment_id: string | null;
   refunded_at: Date | null;
   refund_amount: number | null;
+  refund_method: "hitpay" | "manual" | null;
 };
 type ItemRow = {
   order_reference: string;
@@ -176,6 +178,7 @@ function toOrder(row: OrderRow, items: ItemRow[]): Order {
     hitpayPaymentId: row.hitpay_payment_id,
     refundedAt: row.refunded_at,
     refundAmount: row.refund_amount,
+    refundMethod: row.refund_method,
     lines: items
       .filter((i) => i.order_reference === row.reference)
       .map((i) => ({
@@ -194,6 +197,18 @@ export async function getOrder(reference: string) {
   if (!row) return undefined;
   const items = await sql<ItemRow[]>`select * from order_items where order_reference = ${reference} order by id`;
   return toOrder(row, items);
+}
+
+// Finds an order for a customer who knows its number and the email or mobile number
+// they ordered with.
+export async function findOrderForCustomer(reference: string, contact: string) {
+  const order = await getOrder(reference.trim().toUpperCase());
+  if (!order) return undefined;
+  const value = contact.trim().toLowerCase();
+  const digits = (s: string) => s.replace(/\D/g, "").slice(-10);
+  const emailMatches = value.includes("@") && order.customer.email.trim().toLowerCase() === value;
+  const phoneMatches = digits(value).length >= 7 && digits(order.customer.phone) === digits(value);
+  return emailMatches || phoneMatches ? order : undefined;
 }
 
 export async function listOrders(status: OrderStatus | "all", limit = 200) {
@@ -218,14 +233,14 @@ const stockHeld: OrderStatus[] = ["paid", "ready", "completed"];
 
 // Changes an order's status. Cancelling a paid order puts its items back in stock;
 // un-cancelling it takes them out again.
-export async function updateOrderStatus(reference: string, status: OrderStatus) {
-  await db().begin(async (sql) => {
+export async function updateOrderStatus(reference: string, status: OrderStatus): Promise<OrderStatus | null> {
+  return db().begin(async (sql) => {
     const [row] = await sql<{ status: OrderStatus }[]>`select status from orders where reference = ${reference} for update`;
-    if (!row || row.status === status) return;
+    if (!row || row.status === status) return null;
     await sql`update orders set status = ${status} where reference = ${reference}`;
     const wasHeld = stockHeld.includes(row.status);
     const nowHeld = stockHeld.includes(status);
-    if (wasHeld === nowHeld) return;
+    if (wasHeld === nowHeld) return row.status;
     const items = await sql<ItemRow[]>`select * from order_items where order_reference = ${reference}`;
     for (const item of items) {
       if (!item.variant_id) continue;
@@ -233,12 +248,17 @@ export async function updateOrderStatus(reference: string, status: OrderStatus) 
       await sql`update variants set stock = greatest(stock + ${change}, 0)
         where id = ${item.variant_id} and stock is not null`;
     }
+    return row.status;
   });
 }
 
-export async function recordRefund(reference: string, opts: { amount: number; refundId: string; paymentId: string }) {
-  await db()`update orders set refunded_at = now(), refund_amount = ${opts.amount},
-      hitpay_refund_id = ${opts.refundId}, hitpay_payment_id = coalesce(hitpay_payment_id, ${opts.paymentId})
+export async function recordRefund(
+  reference: string,
+  opts: { amount: number; method: "hitpay" | "manual"; refundId?: string; paymentId?: string },
+) {
+  await db()`update orders set refunded_at = now(), refund_amount = ${opts.amount}, refund_method = ${opts.method},
+      hitpay_refund_id = ${opts.refundId ?? null},
+      hitpay_payment_id = coalesce(hitpay_payment_id, ${opts.paymentId || null})
     where reference = ${reference}`;
   await updateOrderStatus(reference, "cancelled");
 }
@@ -282,7 +302,7 @@ export function orderPurpose(order: Order) {
   return purpose.length > 250 ? purpose.slice(0, 247) + "..." : purpose;
 }
 
-export function orderEmailHtml(order: Order, heading: string, intro = "") {
+export function orderEmailHtml(order: Order, heading: string, intro = "", link?: { href: string; label: string }) {
   const rows = order.lines
     .map(
       (l) =>
@@ -298,5 +318,6 @@ ${intro ? `<p>${intro}</p>` : ""}
 <p><strong>Customer:</strong> ${escapeHtml(order.customer.name)}<br>${escapeHtml(order.customer.email)}<br>${escapeHtml(order.customer.phone)}</p>
 <p><strong>Fulfillment:</strong> ${escapeHtml(order.fulfillmentText)}</p>
 ${order.notes ? `<p><strong>Notes:</strong> ${escapeHtml(order.notes)}</p>` : ""}
+${link ? `<p style="margin-top:20px"><a href="${link.href}" style="display:inline-block;background:#1c1612;color:#fff;padding:12px 20px;border-radius:4px;text-decoration:none">${escapeHtml(link.label)}</a></p>` : ""}
 </div>`;
 }

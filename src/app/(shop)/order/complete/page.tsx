@@ -17,7 +17,13 @@ export default async function OrderComplete({ searchParams }: Props) {
           <ClearCart reference={ref} />
           <h1 className="page-title">Thank you!</h1>
           <p className="lead">
-            Your payment went through{ref ? ` for order ${ref}` : ""}. We&apos;ll get in touch about pickup or delivery.
+            Your payment went through{ref ? ` for order ${ref}` : ""}. We&apos;ll email you when it&apos;s ready for pickup
+            or on its way.
+          </p>
+          <p>
+            <Link href={ref ? `/order/track?ref=${encodeURIComponent(ref)}` : "/order/track"} className="button primary">
+              Track your order
+            </Link>
           </p>
         </>
       ) : (

@@ -11,6 +11,12 @@ the source of truth: edit products in the admin, not in the JSON files.
 
 Without a database connected the site still works read-only from `src/data/*.json`, and orders go by email only.
 
+## Order tracking (`/order/track`)
+
+Customers enter their order number and the email or mobile number they ordered with (or use the link in
+their emails) to see their order's progress. They're emailed when an order is paid, marked Ready, cancelled
+after payment, or refunded.
+
 ## Admin (`/admin`)
 
 Sign in with `ADMIN_PASSWORD`.
@@ -46,6 +52,7 @@ See `.env.example`.
 | `GMAIL_USER` | `yanachocolateria23@gmail.com`, the account order emails are sent from |
 | `GMAIL_APP_PASSWORD` | A Google app password for that account (myaccount.google.com/apppasswords; needs 2-Step Verification) |
 | `ORDER_EMAIL_TO` | Inbox that receives orders |
+| `ORDER_LINK_SECRET` | Optional. Signs the "Track your order" links in emails; defaults to `HITPAY_SALT` |
 | `ADMIN_PASSWORD` | Password for `/admin`. Use a long, unique one |
 | `DATABASE_URL` | Added automatically when you connect a Neon database under Storage |
 

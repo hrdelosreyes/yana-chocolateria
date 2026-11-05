@@ -1703,3 +1703,72 @@ a:hover .tile-link span {
     transform: none;
   }
 }
+
+/* Order tracking */
+.track-form {
+  max-width: 440px;
+  margin: 32px auto 0;
+}
+
+.order-steps {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  margin: 40px auto;
+  padding: 0;
+  max-width: 420px;
+}
+
+.order-steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 28px;
+  color: var(--muted);
+}
+
+.order-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 22px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--line);
+}
+
+.order-steps li.done:not(:last-child)::after {
+  background: var(--gold-dark);
+}
+
+.order-step-dot {
+  flex: 0 0 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--white);
+}
+
+.order-steps li.done .order-step-dot {
+  border-color: var(--gold-dark);
+  background: var(--gold-dark);
+}
+
+.order-steps li.current {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.order-steps li.current .order-step-dot {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 0 4px rgba(201, 173, 114, 0.3);
+}
+
+.order-steps li.done {
+  color: var(--text);
+}
+
+.track-summary {
+  margin: 0 0 32px;
+}

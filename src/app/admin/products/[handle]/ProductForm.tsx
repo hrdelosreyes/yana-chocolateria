@@ -1,13 +1,13 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/lib/use-form-action";
 import type { Collection, Product } from "@/lib/catalog";
 import { saveProductAction } from "../../actions";
 
 export function ProductForm({ product, collections }: { product: Product; collections: Collection[] }) {
-  const [state, action, pending] = useActionState(saveProductAction, null);
+  const [state, onSubmit, pending] = useFormAction(saveProductAction, null);
   return (
-    <form action={action} className="admin-form">
+    <form onSubmit={onSubmit} className="admin-form">
       <input type="hidden" name="handle" value={product.handle} />
 
       <section className="admin-card">

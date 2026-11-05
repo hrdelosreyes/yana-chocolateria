@@ -41,6 +41,10 @@ export type Order = {
   fulfillmentMethod: "pickup" | "courier";
   fulfillmentText: string;
   notes: string;
+  hitpayRequestId?: string | null;
+  hitpayPaymentId?: string | null;
+  refundedAt?: Date | null;
+  refundAmount?: number | null;
 };
 
 const MAX_QTY = 99;
@@ -143,6 +147,10 @@ type OrderRow = {
   fulfillment_method: "pickup" | "courier";
   fulfillment_text: string;
   notes: string;
+  hitpay_request_id: string | null;
+  hitpay_payment_id: string | null;
+  refunded_at: Date | null;
+  refund_amount: number | null;
 };
 type ItemRow = {
   order_reference: string;
@@ -164,6 +172,10 @@ function toOrder(row: OrderRow, items: ItemRow[]): Order {
     fulfillmentMethod: row.fulfillment_method,
     fulfillmentText: row.fulfillment_text,
     notes: row.notes,
+    hitpayRequestId: row.hitpay_request_id,
+    hitpayPaymentId: row.hitpay_payment_id,
+    refundedAt: row.refunded_at,
+    refundAmount: row.refund_amount,
     lines: items
       .filter((i) => i.order_reference === row.reference)
       .map((i) => ({
@@ -202,8 +214,33 @@ export async function countOrdersByStatus() {
   return Object.fromEntries(rows.map((r) => [r.status, r.count])) as Partial<Record<OrderStatus, number>>;
 }
 
+const stockHeld: OrderStatus[] = ["paid", "ready", "completed"];
+
+// Changes an order's status. Cancelling a paid order puts its items back in stock;
+// un-cancelling it takes them out again.
 export async function updateOrderStatus(reference: string, status: OrderStatus) {
-  await db()`update orders set status = ${status} where reference = ${reference}`;
+  await db().begin(async (sql) => {
+    const [row] = await sql<{ status: OrderStatus }[]>`select status from orders where reference = ${reference} for update`;
+    if (!row || row.status === status) return;
+    await sql`update orders set status = ${status} where reference = ${reference}`;
+    const wasHeld = stockHeld.includes(row.status);
+    const nowHeld = stockHeld.includes(status);
+    if (wasHeld === nowHeld) return;
+    const items = await sql<ItemRow[]>`select * from order_items where order_reference = ${reference}`;
+    for (const item of items) {
+      if (!item.variant_id) continue;
+      const change = nowHeld ? -item.quantity : item.quantity;
+      await sql`update variants set stock = greatest(stock + ${change}, 0)
+        where id = ${item.variant_id} and stock is not null`;
+    }
+  });
+}
+
+export async function recordRefund(reference: string, opts: { amount: number; refundId: string; paymentId: string }) {
+  await db()`update orders set refunded_at = now(), refund_amount = ${opts.amount},
+      hitpay_refund_id = ${opts.refundId}, hitpay_payment_id = coalesce(hitpay_payment_id, ${opts.paymentId})
+    where reference = ${reference}`;
+  await updateOrderStatus(reference, "cancelled");
 }
 
 // Marks an order paid exactly once and takes the items out of stock.
@@ -211,9 +248,12 @@ export async function updateOrderStatus(reference: string, status: OrderStatus) 
 export async function markOrderPaid(opts: { reference: string; requestId: string; paymentId: string; amount: string }) {
   const sql = db();
   const updated = await sql.begin(async (tx) => {
-    const [row] = await tx<OrderRow[]>`select * from orders
-      where (reference = ${opts.reference} or hitpay_request_id = ${opts.requestId}) and status = 'pending'
-      for update`;
+    // Match on our order number when HitPay sends it; fall back to its request ID.
+    const [row] = opts.reference
+      ? await tx<OrderRow[]>`select * from orders
+          where reference = ${opts.reference} and status = 'pending' for update`
+      : await tx<OrderRow[]>`select * from orders
+          where hitpay_request_id = ${opts.requestId} and hitpay_request_id <> '' and status = 'pending' for update`;
     if (!row) return null;
     if (Math.round(Number(opts.amount) * 100) !== row.total) {
       throw new Error(`Paid amount ${opts.amount} does not match order ${row.reference} total ${row.total}`);

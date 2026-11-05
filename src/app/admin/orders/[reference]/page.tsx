@@ -5,6 +5,7 @@ import { formatDate } from "@/lib/dates";
 import { formatPrice } from "@/lib/money";
 import { getOrder, lineLabel, orderStatuses } from "@/lib/order";
 import { checkPaymentAction, setOrderStatusAction } from "../../actions";
+import { RefundForm } from "./RefundForm";
 
 type Props = { params: Promise<{ reference: string }>; searchParams: Promise<{ saved?: string; checked?: string }> };
 
@@ -22,6 +23,12 @@ export default async function OrderPage({ params, searchParams }: Props) {
       </p>
       <h1>Order {order.reference}</h1>
       {saved && <p className="notice">Status updated.</p>}
+      {order.refundedAt && (
+        <p className="notice">
+          Refunded {formatPrice(order.refundAmount ?? order.total)} through HitPay on {formatDate(order.refundedAt)}.
+          The order is cancelled.
+        </p>
+      )}
       {checked === "paid" && <p className="notice">HitPay confirmed the payment. The order is now marked paid.</p>}
       {checked === "unpaid" && <p className="error">HitPay hasn&apos;t received a payment for this order.</p>}
       {checked === "error" && <p className="error">Couldn&apos;t reach HitPay. Please try again in a moment.</p>}
@@ -78,6 +85,13 @@ export default async function OrderPage({ params, searchParams }: Props) {
           </tbody>
         </table>
       </section>
+
+      {order.paidAt && !order.refundedAt && (
+        <section className="admin-card">
+          <h2>Refund</h2>
+          <RefundForm reference={order.reference} amount={formatPrice(order.total)} />
+        </section>
+      )}
 
       <section className="admin-card">
         <h2>Customer</h2>

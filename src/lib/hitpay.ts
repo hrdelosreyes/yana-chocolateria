@@ -72,6 +72,22 @@ export async function getPaymentRequest(id: string): Promise<PaymentRequest> {
   return res.json();
 }
 
+export type Refund = { id: string; payment_id: string; amount_refunded: number | string; status: string };
+
+export async function refundPayment(paymentId: string, amount: number): Promise<Refund> {
+  const res = await fetch(`${apiBase()}/refund`, {
+    method: "POST",
+    headers: {
+      "X-BUSINESS-API-KEY": apiKey(),
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ payment_id: paymentId, amount: (amount / 100).toFixed(2) }),
+  });
+  if (!res.ok) throw new Error(`HitPay refund failed (${res.status}): ${await res.text()}`);
+  return res.json();
+}
+
 function safeEqual(a: string, b: string) {
   const ab = Buffer.from(a);
   const bb = Buffer.from(b);

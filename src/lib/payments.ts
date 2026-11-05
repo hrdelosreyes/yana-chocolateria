@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
-import { getPaymentRequest } from "@/lib/hitpay";
+import { getPaymentRequest, refundPayment } from "@/lib/hitpay";
 import { sendEmail } from "@/lib/email";
-import { getPendingHitpayRequest, markOrderPaid, orderEmailHtml, type Order } from "@/lib/order";
+import { getOrder, getPendingHitpayRequest, markOrderPaid, orderEmailHtml, recordRefund, type Order } from "@/lib/order";
 import { site } from "@/lib/site";
 
 // Emails the shop and the customer once an order is paid.
@@ -49,4 +49,28 @@ export async function syncOrderPayment(reference: string) {
   console.info(`HitPay sync: order ${reference} marked paid`);
   await notifyPaid(order);
   return true;
+}
+
+export class RefundError extends Error {}
+
+// Refunds the full amount of a paid order through HitPay and cancels the order.
+export async function refundOrder(reference: string) {
+  const order = await getOrder(reference);
+  if (!order) throw new RefundError("Order not found.");
+  if (order.refundedAt) throw new RefundError("This order has already been refunded.");
+  if (!order.paidAt) throw new RefundError("This order was never paid, so there's nothing to refund.");
+
+  let paymentId = order.hitpayPaymentId || "";
+  if (!paymentId && order.hitpayRequestId) {
+    const pr = await getPaymentRequest(order.hitpayRequestId);
+    paymentId = (pr.payments?.find((p) => p.status === "succeeded") ?? pr.payments?.[0])?.id ?? "";
+  }
+  if (!paymentId) {
+    throw new RefundError("HitPay's payment ID for this order is missing. Please refund it from the HitPay dashboard.");
+  }
+
+  const refund = await refundPayment(paymentId, order.total);
+  await recordRefund(reference, { amount: order.total, refundId: String(refund.id ?? ""), paymentId });
+  revalidatePath("/", "layout"); // stock may have changed
+  console.info(`HitPay refund: order ${reference} refunded`);
 }

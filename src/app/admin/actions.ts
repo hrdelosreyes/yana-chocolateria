@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { logIn, logOut, requireAdmin } from "@/lib/admin-auth";
 import { db } from "@/lib/db";
 import { orderStatuses, updateOrderStatus, type OrderStatus } from "@/lib/order";
-import { syncOrderPayment } from "@/lib/payments";
+import { RefundError, refundOrder, syncOrderPayment } from "@/lib/payments";
 
 export async function loginAction(_state: { error: string } | null, form: FormData) {
   if (await logIn(String(form.get("password") ?? ""))) redirect("/admin");
@@ -40,6 +40,25 @@ export async function checkPaymentAction(form: FormData) {
   }
   revalidatePath("/admin", "layout");
   redirect(`/admin/orders/${encodeURIComponent(reference)}?checked=${result}`);
+}
+
+export async function refundOrderAction(_state: { error: string } | null, form: FormData) {
+  await requireAdmin();
+  const reference = String(form.get("reference"));
+  if (form.get("confirm") !== "on") return { error: "Tick the box to confirm the refund." };
+  try {
+    await refundOrder(reference);
+  } catch (err) {
+    console.error(`Refund failed for ${reference}`, err);
+    return {
+      error:
+        err instanceof RefundError
+          ? err.message
+          : "HitPay couldn't process the refund. Please try again, or refund it from the HitPay dashboard.",
+    };
+  }
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/orders/${encodeURIComponent(reference)}`);
 }
 
 function parsePrice(value: string) {

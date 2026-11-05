@@ -3,7 +3,7 @@ import { getCollections, getProducts } from "@/lib/catalog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [collections, products] = await Promise.all([getCollections(), getProducts()]);
-  const base = (process.env.SITE_URL || "https://www.yanachocolateria.com").replace(/\/$/, "");
+  const base = (process.env.SITE_URL || "https://yanachocolateria.com").replace(/\/$/, "");
   const paths = [
     "",
     "/shop",

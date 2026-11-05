@@ -1,6 +1,6 @@
 # YANA Chocolateria website
 
-Next.js site for www.yanachocolateria.com, hosted on Vercel, with checkout through HitPay
+Next.js site for yanachocolateria.com, hosted on Vercel, with checkout through HitPay
 (GCash, Maya, QR Ph, cards). Products, photos and text were copied from the old Shopify store.
 
 ## Database (Vercel Postgres / Neon)
@@ -38,7 +38,7 @@ See `.env.example`.
 
 | Name | Value |
 | --- | --- |
-| `SITE_URL` | `https://www.yanachocolateria.com` |
+| `SITE_URL` | `https://yanachocolateria.com` |
 | `HITPAY_API_KEY` | HitPay dashboard → Settings → Payment Gateway → API Keys |
 | `HITPAY_SALT` | Same page as the API key |
 | `HITPAY_MODE` | `sandbox` while testing, `live` when ready |

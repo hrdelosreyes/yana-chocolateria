@@ -13,7 +13,7 @@ const display = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || "https://www.yanachocolateria.com"),
+  metadataBase: new URL(process.env.SITE_URL || "https://yanachocolateria.com"),
   title: { default: site.name, template: `%s | ${site.name}` },
   description: site.description,
   icons: { icon: "/images/site/icon.webp" },

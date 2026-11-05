@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { logIn, logOut, requireAdmin } from "@/lib/admin-auth";
 import { db } from "@/lib/db";
 import { orderStatuses, updateOrderStatus, type OrderStatus } from "@/lib/order";
+import { HitPayError } from "@/lib/hitpay";
 import { RefundError, refundOrder, syncOrderPayment } from "@/lib/payments";
 
 export async function loginAction(_state: { error: string } | null, form: FormData) {
@@ -54,7 +55,9 @@ export async function refundOrderAction(_state: { error: string } | null, form: 
       error:
         err instanceof RefundError
           ? err.message
-          : "HitPay couldn't process the refund. Please try again, or refund it from the HitPay dashboard.",
+          : err instanceof HitPayError
+            ? `HitPay refused the refund (${err.message}). You can refund it from the HitPay dashboard, then mark the order Cancelled.`
+            : "Couldn't reach HitPay. Please try again, or refund it from the HitPay dashboard.",
     };
   }
   revalidatePath("/admin", "layout");

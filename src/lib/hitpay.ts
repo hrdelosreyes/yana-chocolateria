@@ -72,6 +72,22 @@ export async function getPaymentRequest(id: string): Promise<PaymentRequest> {
   return res.json();
 }
 
+// An error response from HitPay's API, with its own message when it sends one.
+export class HitPayError extends Error {
+  constructor(
+    public status: number,
+    public body: string,
+  ) {
+    let detail = body.slice(0, 300);
+    try {
+      const data = JSON.parse(body);
+      const errors = data.errors ? Object.values(data.errors).flat().join(" ") : "";
+      detail = [data.message, errors].filter(Boolean).join(" ") || detail;
+    } catch {}
+    super(`HitPay error ${status}: ${detail}`);
+  }
+}
+
 export type Refund = { id: string; payment_id: string; amount_refunded: number | string; status: string };
 
 export async function refundPayment(paymentId: string, amount: number): Promise<Refund> {
@@ -84,7 +100,7 @@ export async function refundPayment(paymentId: string, amount: number): Promise<
     },
     body: new URLSearchParams({ payment_id: paymentId, amount: (amount / 100).toFixed(2) }),
   });
-  if (!res.ok) throw new Error(`HitPay refund failed (${res.status}): ${await res.text()}`);
+  if (!res.ok) throw new HitPayError(res.status, await res.text());
   return res.json();
 }
 

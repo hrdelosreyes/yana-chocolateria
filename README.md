@@ -14,14 +14,15 @@ Without a database connected the site still works read-only from `src/data/*.jso
 ## Order tracking (`/order/track`)
 
 Customers enter their order number and the email or mobile number they ordered with (or use the link in
-their emails) to see their order's progress. They're emailed when an order is paid, marked Ready, cancelled
+their emails) to see their order's progress. While an order is Paid (to prepare) they can cancel it for a
+refund; moving it to Preparing locks that. They're emailed when an order is paid, marked Ready, cancelled
 after payment, or refunded.
 
 ## Admin (`/admin`)
 
 Sign in with `ADMIN_PASSWORD`.
 
-- **Orders:** tabs for Paid (to prepare), Ready, Completed, Cancelled and Awaiting payment. Open an order to
+- **Orders:** tabs for Paid (to prepare), Preparing, Ready, Completed, Cancelled and Awaiting payment. Open an order to
   see the items, customer, pickup branch or delivery address, and to change its status.
 - **Products:** change names, prices, stock, categories, descriptions, sold-out and show/hide. Changes appear
   on the site right away. Leave stock blank to not track it; when tracked stock reaches 0 the item shows as

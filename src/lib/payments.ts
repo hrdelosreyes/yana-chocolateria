@@ -49,7 +49,7 @@ export async function notifyPaid(order: Order) {
   );
 }
 
-const paidStatuses: OrderStatus[] = ["paid", "ready", "completed"];
+const paidStatuses: OrderStatus[] = ["paid", "preparing", "ready", "completed"];
 
 // Tells the customer when the shop marks their order ready, or cancels a paid order.
 export async function notifyStatusChange(reference: string, previous: OrderStatus) {

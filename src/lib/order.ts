@@ -20,10 +20,11 @@ export type OrderLine = {
   unitPrice: number;
 };
 
-export type OrderStatus = "pending" | "paid" | "ready" | "completed" | "cancelled";
+export type OrderStatus = "pending" | "paid" | "preparing" | "ready" | "completed" | "cancelled";
 
 export const orderStatuses: { value: OrderStatus; label: string }[] = [
   { value: "paid", label: "Paid – to prepare" },
+  { value: "preparing", label: "Preparing" },
   { value: "ready", label: "Ready / out for delivery" },
   { value: "completed", label: "Completed" },
   { value: "cancelled", label: "Cancelled" },
@@ -229,7 +230,7 @@ export async function countOrdersByStatus() {
   return Object.fromEntries(rows.map((r) => [r.status, r.count])) as Partial<Record<OrderStatus, number>>;
 }
 
-const stockHeld: OrderStatus[] = ["paid", "ready", "completed"];
+const stockHeld: OrderStatus[] = ["paid", "preparing", "ready", "completed"];
 
 // Changes an order's status and returns the previous one (null if nothing changed).
 // Cancelling a paid order puts its items back in stock; un-cancelling takes them out

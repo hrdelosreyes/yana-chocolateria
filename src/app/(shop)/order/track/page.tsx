@@ -15,9 +15,10 @@ type Props = { searchParams: Promise<{ ref?: string; t?: string }> };
 
 function steps(order: Order) {
   const pickup = order.fulfillmentMethod === "pickup";
-  const reached = { pending: -1, paid: 0, ready: 1, completed: 2, cancelled: -1 }[order.status];
+  const reached = { pending: -1, paid: 0, preparing: 1, ready: 2, completed: 3, cancelled: -1 }[order.status];
   return [
     "Payment received",
+    "Being prepared",
     pickup ? "Ready for pickup" : "Out for delivery",
     pickup ? "Picked up" : "Delivered",
   ].map((label, i) => ({ label, done: i <= reached, current: i === reached }));
@@ -29,6 +30,8 @@ function statusMessage(order: Order) {
       return "We haven't received payment for this order yet.";
     case "paid":
       return "We've received your payment. Your order is in line to be prepared.";
+    case "preparing":
+      return "We're preparing your order now. We'll email you when it's ready.";
     case "ready":
       return order.fulfillmentMethod === "pickup"
         ? `Your order is ready. ${order.fulfillmentText.replace(/^Pickup at /, "Pick it up at ")}, and bring your order number.`
@@ -71,7 +74,7 @@ export default async function TrackOrder({ searchParams }: Props) {
       {showSteps && (
         <ol className="order-steps">
           {steps(order).map((s) => (
-            <li key={s.label} className={s.done ? "done" : s.current ? "current" : undefined}>
+            <li key={s.label} className={[s.done && "done", s.current && "current"].filter(Boolean).join(" ") || undefined}>
               <span className="order-step-dot" aria-hidden />
               {s.label}
             </li>

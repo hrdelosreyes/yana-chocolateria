@@ -41,6 +41,7 @@ See `.env.example`.
 | `SITE_URL` | `https://yanachocolateria.com` |
 | `HITPAY_API_KEY` | HitPay dashboard → Settings → Payment Gateway → API Keys |
 | `HITPAY_SALT` | Same page as the API key |
+| `HITPAY_WEBHOOK_SALT` | The salt shown for the webhook registered in HitPay (Settings → Webhooks), if it has its own |
 | `HITPAY_MODE` | `sandbox` while testing, `live` when ready |
 | `GMAIL_USER` | `yanachocolateria23@gmail.com`, the account order emails are sent from |
 | `GMAIL_APP_PASSWORD` | A Google app password for that account (myaccount.google.com/apppasswords; needs 2-Step Verification) |

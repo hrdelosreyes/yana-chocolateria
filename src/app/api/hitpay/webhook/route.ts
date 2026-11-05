@@ -12,9 +12,11 @@ function parse(raw: string, contentType: string, signature: string | null): Paid
   if (contentType.includes("application/json")) {
     if (!verifyJsonWebhook(raw, signature)) return null;
     const data = JSON.parse(raw);
+    // The event body is either a payment request (with its payments) or a single payment.
+    const isRequest = Array.isArray(data.payments);
     return {
-      paymentRequestId: String(data.payment_request?.id ?? data.payment_request_id ?? ""),
-      paymentId: String(data.id ?? data.payment_id ?? ""),
+      paymentRequestId: String((isRequest ? data.id : (data.payment_request?.id ?? data.payment_request_id)) ?? ""),
+      paymentId: String((isRequest ? data.payments[0]?.id : (data.id ?? data.payment_id)) ?? ""),
       reference: String(data.reference_number ?? data.payment_request?.reference_number ?? ""),
       amount: String(data.amount ?? ""),
       status: String(data.status ?? ""),

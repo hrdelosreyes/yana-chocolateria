@@ -76,10 +76,16 @@ function safeEqual(a: string, b: string) {
   return ab.length === bb.length && timingSafeEqual(ab, bb);
 }
 
-function salt() {
-  const value = process.env.HITPAY_SALT;
-  if (!value) throw new Error("HITPAY_SALT is not set");
-  return value;
+// The API salt signs the confirmation sent for each payment request; a webhook
+// registered in the HitPay dashboard has its own salt. Accept either.
+function salts() {
+  const values = [process.env.HITPAY_SALT, process.env.HITPAY_WEBHOOK_SALT].filter((v): v is string => Boolean(v));
+  if (values.length === 0) throw new Error("HITPAY_SALT is not set");
+  return values;
+}
+
+function signedBy(message: string, signature: string) {
+  return salts().some((salt) => safeEqual(createHmac("sha256", salt).update(message).digest("hex"), signature));
 }
 
 // Payment request webhook (form-encoded): HMAC-SHA256 over the fields sorted by
@@ -91,13 +97,10 @@ export function verifyFormWebhook(fields: Record<string, string>) {
     .sort()
     .map((k) => k + rest[k])
     .join("");
-  const expected = createHmac("sha256", salt()).update(message).digest("hex");
-  return safeEqual(expected, hmac);
+  return signedBy(message, hmac);
 }
 
 // Event webhooks (JSON): HMAC-SHA256 of the raw body in the Hitpay-Signature header.
 export function verifyJsonWebhook(rawBody: string, signature: string | null) {
-  if (!signature) return false;
-  const expected = createHmac("sha256", salt()).update(rawBody).digest("hex");
-  return safeEqual(expected, signature);
+  return Boolean(signature) && signedBy(rawBody, signature!);
 }

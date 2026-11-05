@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { logIn, logOut, requireAdmin } from "@/lib/admin-auth";
 import { db } from "@/lib/db";
 import { orderStatuses, updateOrderStatus, type OrderStatus } from "@/lib/order";
+import { syncOrderPayment } from "@/lib/payments";
 
 export async function loginAction(_state: { error: string } | null, form: FormData) {
   if (await logIn(String(form.get("password") ?? ""))) redirect("/admin");
@@ -25,6 +26,20 @@ export async function setOrderStatusAction(form: FormData) {
   await updateOrderStatus(reference, status);
   revalidatePath("/admin", "layout");
   redirect(`/admin/orders/${encodeURIComponent(reference)}?saved=1`);
+}
+
+export async function checkPaymentAction(form: FormData) {
+  await requireAdmin();
+  const reference = String(form.get("reference"));
+  let result = "unpaid";
+  try {
+    if (await syncOrderPayment(reference)) result = "paid";
+  } catch (err) {
+    console.error(`HitPay check failed for ${reference}`, err);
+    result = "error";
+  }
+  revalidatePath("/admin", "layout");
+  redirect(`/admin/orders/${encodeURIComponent(reference)}?checked=${result}`);
 }
 
 function parsePrice(value: string) {

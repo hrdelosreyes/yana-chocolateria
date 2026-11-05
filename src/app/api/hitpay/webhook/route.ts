@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { getPaymentRequest, verifyFormWebhook, verifyJsonWebhook } from "@/lib/hitpay";
 import { escapeHtml, sendEmail } from "@/lib/email";
 import { hasDatabase } from "@/lib/db";
-import { markOrderPaid, orderEmailHtml } from "@/lib/order";
+import { markOrderPaid } from "@/lib/order";
+import { notifyPaid } from "@/lib/payments";
 import { site } from "@/lib/site";
 
 type Paid = { paymentRequestId: string; paymentId: string; reference: string; amount: string; status: string };
+
+function safeJson(raw: string): Record<string, unknown> {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
 
 function parse(raw: string, contentType: string, signature: string | null): Paid | null {
   if (contentType.includes("application/json")) {
@@ -35,9 +43,23 @@ function parse(raw: string, contentType: string, signature: string | null): Paid
 
 export async function POST(request: Request) {
   const raw = await request.text();
-  const paid = parse(raw, request.headers.get("content-type") ?? "", request.headers.get("hitpay-signature"));
-  if (!paid) return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-  if (paid.status !== "completed" && paid.status !== "succeeded") return NextResponse.json({ ok: true });
+  const contentType = request.headers.get("content-type") ?? "";
+  const paid = parse(raw, contentType, request.headers.get("hitpay-signature"));
+  if (!paid) {
+    // Logged without values so no customer data ends up in the logs.
+    const keys = contentType.includes("json") ? Object.keys(safeJson(raw)) : [...new URLSearchParams(raw).keys()];
+    console.warn("HitPay webhook rejected: signature didn't match HITPAY_SALT or HITPAY_WEBHOOK_SALT", {
+      contentType,
+      event: request.headers.get("hitpay-event-type"),
+      hasSignatureHeader: request.headers.has("hitpay-signature"),
+      fields: keys,
+    });
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  }
+  if (paid.status !== "completed" && paid.status !== "succeeded") {
+    console.info(`HitPay webhook ignored: status "${paid.status}" for ${paid.reference || paid.paymentRequestId}`);
+    return NextResponse.json({ ok: true });
+  }
 
   const shopEmail = process.env.ORDER_EMAIL_TO;
 
@@ -61,27 +83,14 @@ export async function POST(request: Request) {
       }
       return NextResponse.json({ ok: true });
     }
-    if (!order) return NextResponse.json({ ok: true }); // already handled
-
-    revalidatePath("/", "layout"); // stock may have changed
-    if (shopEmail) {
-      await sendEmail({
-        to: shopEmail,
-        subject: `PAID: order ${order.reference}`,
-        html: orderEmailHtml(order, "New paid order"),
-        replyTo: order.customer.email,
-      });
+    if (!order) {
+      console.info(
+        `HitPay webhook: no pending order for reference "${paid.reference}" / request "${paid.paymentRequestId}" (already paid, or not found)`,
+      );
+      return NextResponse.json({ ok: true });
     }
-    await sendEmail({
-      to: order.customer.email,
-      subject: `Thank you for your order ${order.reference}`,
-      html: orderEmailHtml(
-        order,
-        `Thank you, ${order.customer.name}!`,
-        `We've received your payment and are preparing your order. We'll contact you about pickup or delivery. Questions? Email ${site.email} or call ${site.phone}.`,
-      ),
-      replyTo: shopEmail,
-    });
+    console.info(`HitPay webhook: order ${order.reference} marked paid`);
+    await notifyPaid(order);
     return NextResponse.json({ ok: true });
   }
 

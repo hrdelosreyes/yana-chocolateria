@@ -121,6 +121,12 @@ export async function saveOrder(order: Order) {
   });
 }
 
+export async function getPendingHitpayRequest(reference: string) {
+  const [row] = await db()<{ hitpay_request_id: string | null }[]>`
+    select hitpay_request_id from orders where reference = ${reference} and status = 'pending'`;
+  return row?.hitpay_request_id ?? null;
+}
+
 export async function setHitpayRequest(reference: string, requestId: string) {
   await db()`update orders set hitpay_request_id = ${requestId} where reference = ${reference}`;
 }

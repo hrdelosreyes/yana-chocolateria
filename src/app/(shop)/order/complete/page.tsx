@@ -14,7 +14,7 @@ export default async function OrderComplete({ searchParams }: Props) {
     <div className="section container narrow center">
       {paid ? (
         <>
-          <ClearCart />
+          <ClearCart reference={ref} />
           <h1 className="page-title">Thank you!</h1>
           <p className="lead">
             Your payment went through{ref ? ` for order ${ref}` : ""}. We&apos;ll get in touch about pickup or delivery.

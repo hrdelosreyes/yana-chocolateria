@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 function apiBase() {
+  if (process.env.HITPAY_API_BASE) return process.env.HITPAY_API_BASE; // for local testing
   return process.env.HITPAY_MODE === "live" ? "https://api.hit-pay.com/v1" : "https://api.sandbox.hit-pay.com/v1";
 }
 
@@ -31,6 +32,7 @@ export type PaymentRequest = {
   name: string | null;
   email: string | null;
   phone: string | null;
+  payments?: { id: string; status: string; amount: string }[];
 };
 
 export async function createPaymentRequest(input: PaymentRequestInput): Promise<PaymentRequest> {
